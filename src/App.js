@@ -6,15 +6,15 @@ import Books from './components/Books.js';
 
 import withFirebaseAuth from 'react-with-firebase-auth'
 import 'firebase/auth';
-import firebaseConfig from './firebaseConfig';
-import * as firebase from 'firebase/app';
+import firebase from './firebaseConfig';
+// import * as firebase from 'firebase/app';
 
 // Required for side-effects
 require("firebase/firestore");
 
-const firebaseApp = firebase.initializeApp(firebaseConfig);
-const firebaseAppAuth = firebaseApp.auth();
-const db = firebaseApp.firestore();
+// const firebaseApp = firebase.initializeApp(firebaseConfig);
+const firebaseAppAuth = firebase.auth();
+
 
 const providers = {
   googleProvider: new firebase.auth.GoogleAuthProvider(),
@@ -30,25 +30,9 @@ class App extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      books: [],
       users: [],
     }
   }
-
-  componentDidMount () {
-
-    const allBooks = this.state.books;
-    db.collection("books").get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        allBooks.push(doc.data());
-        // console.log(`${doc.id} => ${doc.data().title}`);
-      });
-    });
-
-    this.setState = {
-      books: allBooks,
-    }
-  };
 
   render() {
     const {
@@ -95,7 +79,7 @@ class App extends Component {
           <Route path="/" exact component={Home} />
           <Route
             path='/books/'
-            render={(props) => <Books allBooks={this.state.books} />}
+            render={(props) => <Books />}
           />
           <Route path="/users/" component={Users} />
 
