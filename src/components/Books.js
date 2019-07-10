@@ -56,14 +56,36 @@ class Books extends Component {
       filters: allFilters,
     });
 
+    this.onFilterResults();
+    
+  }
+
+  onRemoveFilter = (name) => {
+    const allFilters = this.state.filters;
+    if (allFilters.includes(name)) {
+      let index = allFilters.indexOf(name);
+      if (index !== -1) allFilters.splice(index, 1);
+    }
+
+    console.log(allFilters);
+    this.setState({
+      filters: allFilters,
+    })
+
+    this.onFilterResults();
+
+  }
+
+  onFilterResults = (results) => {
     const filteredBooks = [];
     let filteredResults = firebase.firestore().collection('books');
+
     this.state.filters.forEach(function (cat) {
       const thingToCheck = 'categories.' + cat;
       filteredResults = filteredResults.where(thingToCheck, '==', true)
     });
 
-    filteredResults.get().then(function (querySnapshot) {
+    filteredResults.get().then((querySnapshot) => {
 
       querySnapshot.forEach(function (doc) {
         filteredBooks.push({ title: doc.data().title, author: doc.data().author });
@@ -79,33 +101,10 @@ class Books extends Component {
       });
 
       console.log(bookItems);
-      this.onFilterResults(bookItems);
-
+      this.setState ({
+        books: bookItems,
+      });
     });
-
-
-  }
-
-  onRemoveFilter = (name) => {
-    const allFilters = this.state.filters;
-    if (allFilters.includes(name)) {
-      let index = allFilters.indexOf(name);
-      if (index !== -1) allFilters.splice(index, 1);
-    }
-
-    console.log(allFilters);
-    this.setState({
-      filters: allFilters,
-    })
-
-
-  }
-
-  onFilterResults = (results) => {
-    this.setState ({
-      books: results,
-    });
-
   }
 
   render() {
