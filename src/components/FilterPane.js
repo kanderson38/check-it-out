@@ -41,7 +41,7 @@ class FilterPane extends Component {
   render() {
     return (
       <div className="filterpane-container">
-        <SearchBar />
+        <SearchBar searchBooksCallback={this.props.searchBooksCallback}/>
         <div className="categories-container">
           {this.state.categories}
         </div>

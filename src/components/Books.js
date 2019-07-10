@@ -76,6 +76,20 @@ class Books extends Component {
 
   }
 
+  onSearchBooks = (searchString) => {
+    const booksToSearch = this.state.defaultBooks;
+    const foundBooks = [];
+
+    booksToSearch.forEach(function(book) {
+      if (book.props.title.includes(searchString)) {
+        foundBooks.push(book);
+      }
+    });
+    this.setState({
+      books: foundBooks,
+    })
+  }
+
   onFilterResults = (results) => {
     const filteredBooks = [];
     let filteredResults = firebase.firestore().collection('books');
@@ -115,7 +129,8 @@ class Books extends Component {
           {this.state.books}
         </div>
         <FilterPane addFilterCallback={this.onAddFilter}
-          removeFilterCallback={this.onRemoveFilter} />
+          removeFilterCallback={this.onRemoveFilter} 
+          searchBooksCallback={this.onSearchBooks} />
 
       </div>
     )
