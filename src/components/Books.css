@@ -4,6 +4,6 @@
   height: 100vh;
 }
 
-.booklist-container :nth-child(even) {
+.booklist-container div:nth-of-type(even) {
   background-color: lightgrey;
 }

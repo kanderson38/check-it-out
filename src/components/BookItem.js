@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+
+import { Link } from 'react-router-dom';
 import './BookItem.css';
 
 class BookItem extends Component {
@@ -6,7 +8,7 @@ class BookItem extends Component {
   render () {
     return (
       <div className="bookitem">
-        <p>{this.props.title} {this.props.author}</p>
+        <Link to={`${this.props.match.url}/${this.props.title}`}>{this.props.title}</Link><p> {this.props.author}</p>
       </div>
     )
   }

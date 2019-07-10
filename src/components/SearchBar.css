@@ -1,0 +1,15 @@
+.search-bar-container {
+  margin: 20px;
+}
+
+.search-bar-container label {
+  font-weight: bold;
+}
+
+.search-bar-container input {
+  line-height: 2em;
+  margin-left: 10px;
+  width: 50%;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+}

@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import './App.css'
 import Home from "./components/Home.js";
 import Books from './components/Books.js';
+import ShowBook from './components/ShowBook.js';
 
-import withFirebaseAuth from 'react-with-firebase-auth'
+import withFirebaseAuth from 'react-with-firebase-auth';
 import 'firebase/auth';
 import firebase from './firebaseConfig';
 // import * as firebase from 'firebase/app';
@@ -30,7 +31,7 @@ class App extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      users: [],
+      authUser: null,
     }
   }
 
@@ -79,9 +80,10 @@ class App extends Component {
           <Route path="/" exact component={Home} />
           <Route
             path='/books/'
-            render={(props) => <Books />}
+            render={(props) => <Books {...props}/>}
           />
           <Route path="/users/" component={Users} />
+          <Route path="/books/:id" component={ShowBook} />
 
 
         </div>

@@ -4,7 +4,7 @@ import './Home.css';
 
 class Home extends Component {
   render () {
-    
+    console.log(this.props.match)
 
   return (
     <div>

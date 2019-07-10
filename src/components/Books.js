@@ -32,6 +32,7 @@ class Books extends Component {
 
       const bookItems = allBooks.map((book) => {
         return <BookItem
+          {...this.props}
           key={book.title}
           title={book.title}
           author={book.author}
@@ -57,7 +58,7 @@ class Books extends Component {
     });
 
     this.onFilterResults();
-    
+
   }
 
   onRemoveFilter = (name) => {
@@ -67,7 +68,6 @@ class Books extends Component {
       if (index !== -1) allFilters.splice(index, 1);
     }
 
-    console.log(allFilters);
     this.setState({
       filters: allFilters,
     })
@@ -77,14 +77,21 @@ class Books extends Component {
   }
 
   onSearchBooks = (searchString) => {
-    const booksToSearch = this.state.defaultBooks;
+    console.log(searchString);
+    const booksToSearch = this.state.books;
     const foundBooks = [];
 
-    booksToSearch.forEach(function(book) {
-      if (book.props.title.includes(searchString)) {
-        foundBooks.push(book);
-      }
-    });
+    if (searchString !== "") {
+      booksToSearch.forEach(function (book) {
+        if (book.props.title.includes(searchString) || book.props.author.includes(searchString)) {
+          foundBooks.push(book);
+        }
+      });
+    } else {
+      this.onFilterResults();
+    }
+
+
     this.setState({
       books: foundBooks,
     })
@@ -108,28 +115,27 @@ class Books extends Component {
 
       const bookItems = filteredBooks.map((book) => {
         return <BookItem
+          {...this.props}
           key={book.title}
           title={book.title}
           author={book.author}
         />
       });
 
-      console.log(bookItems);
-      this.setState ({
+      this.setState({
         books: bookItems,
       });
     });
   }
 
   render() {
-    console.log(this.state.books);
     return (
       <div className="books-container">
         <div className="booklist-container">
           {this.state.books}
         </div>
         <FilterPane addFilterCallback={this.onAddFilter}
-          removeFilterCallback={this.onRemoveFilter} 
+          removeFilterCallback={this.onRemoveFilter}
           searchBooksCallback={this.onSearchBooks} />
 
       </div>
