@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
+import './BookItem.css';
 
 class BookItem extends Component {
 
   render () {
-    console.log(this.props);
     return (
-      <div>
-        <p>{this.props.title}</p>
+      <div className="bookitem">
+        <p>{this.props.title} {this.props.author}</p>
       </div>
     )
   }

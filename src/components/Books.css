@@ -1,0 +1,9 @@
+.books-container {
+  display: grid;
+  grid-template: 1fr / 2fr 1fr;
+  height: 100vh;
+}
+
+.booklist-container :nth-child(even) {
+  background-color: lightgrey;
+}
