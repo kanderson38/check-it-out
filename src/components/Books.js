@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import FilterPane from './FilterPane.js';
 import BookItem from './BookItem.js';
@@ -133,7 +134,7 @@ class Books extends Component {
       <div className="books-container">
         <div className="booklist-container">
           <div className="book-search">
-            Add a book to the library
+            <Link to="/addbook/">Add a book to the library</Link>
           </div>
           {this.state.books}
         </div>

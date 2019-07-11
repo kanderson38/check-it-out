@@ -4,6 +4,7 @@ import './App.css'
 import Home from "./components/Home.js";
 import Books from './components/Books.js';
 import ShowBook from './components/ShowBook.js';
+import AddBook from './components/AddBook.js';
 
 import withFirebaseAuth from 'react-with-firebase-auth';
 import 'firebase/auth';
@@ -84,6 +85,7 @@ class App extends Component {
             />
             <Route path="/users/" component={Users} />
             <Route path="/books/:id" render={(props) => <ShowBook {...props} />} />
+            <Route path="/addbook/" component={AddBook} />
           </Switch>
 
         </div>
