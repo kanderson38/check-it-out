@@ -7,3 +7,10 @@
 .booklist-container div:nth-of-type(even) {
   background-color: lightgrey;
 }
+
+.book-search {
+  padding: 20px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+}

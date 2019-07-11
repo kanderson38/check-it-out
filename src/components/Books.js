@@ -132,6 +132,9 @@ class Books extends Component {
     return (
       <div className="books-container">
         <div className="booklist-container">
+          <div className="book-search">
+            Add a book to the library
+          </div>
           {this.state.books}
         </div>
         <FilterPane addFilterCallback={this.onAddFilter}

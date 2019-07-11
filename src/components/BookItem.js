@@ -6,9 +6,10 @@ import './BookItem.css';
 class BookItem extends Component {
 
   render () {
+    
     return (
       <div className="bookitem">
-        <Link to={`${this.props.match.url}/${this.props.title}`}>{this.props.title}</Link><p> {this.props.author}</p>
+        <Link to={`${this.props.match.url}${this.props.title}`}>{this.props.title}</Link><p> {this.props.author}</p>
       </div>
     )
   }

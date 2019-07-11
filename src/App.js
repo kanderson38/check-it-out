@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import './App.css'
 import Home from "./components/Home.js";
 import Books from './components/Books.js';
@@ -28,7 +28,7 @@ function Users() {
 
 class App extends Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       authUser: null,
@@ -76,15 +76,15 @@ class App extends Component {
           <div className="status">
 
           </div>
-
-          <Route path="/" exact component={Home} />
-          <Route
-            path='/books/'
-            render={(props) => <Books {...props}/>}
-          />
-          <Route path="/users/" component={Users} />
-          <Route path="/books/:id" component={ShowBook} />
-
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route
+              path='/books/' exact
+              render={(props) => <Books {...props} />}
+            />
+            <Route path="/users/" component={Users} />
+            <Route path="/books/:id" render={(props) => <ShowBook {...props} />} />
+          </Switch>
 
         </div>
       </Router>
