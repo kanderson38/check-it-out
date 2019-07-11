@@ -1,0 +1,35 @@
+.search-results-container div:nth-of-type(even) {
+  background-color: lightgrey;
+}
+
+.add-book-container {
+  margin: 20px;
+}
+
+.add-book-container label {
+  font-weight: bold;
+}
+
+.add-book-container input {
+  line-height: 2em;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 50%;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+}
+
+.add-book-search-bar {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.submit-button {
+  background-color: lightblue;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.submit-button:hover {
+  cursor: pointer;
+}

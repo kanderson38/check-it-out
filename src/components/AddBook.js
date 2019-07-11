@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import './AddBook.css';
+
 import SearchResultItem from './SearchResultItem.js'
 
 
@@ -28,8 +30,9 @@ class AddBook extends Component {
   }
 
   getBooks = () => {
-    axios.get(`${API_URL}?q=${this.state.searchQuery}`)
+    axios.get(`${API_URL}?q=${this.state.searchQuery}&printType=books`)
       .then((response) => {
+        console.log(response.data.items[0])
         const searchList = response.data.items.map((book) => {
           return <SearchResultItem
             key={book.id}
@@ -38,6 +41,8 @@ class AddBook extends Component {
             publishedDate={book.volumeInfo.publishedDate}
             publisher={book.volumeInfo.publisher}
             thumbnail={book.volumeInfo.imageLinks.smallThumbnail}
+            description={book.volumeInfo.description}
+
           // addBookCallback={this.addBook}
           />
         });
@@ -52,13 +57,15 @@ class AddBook extends Component {
 
     return (
       <div className="add-book-container">
-        <label>
-          Search for a new book:
+        <div className="add-book-search-bar">
+          <label>
+            Search for a new book:
           <input name="search-api" placeholder="Title, author" value={this.state.searchQuery} onChange={this.onHandleSearchChange}></input>
-          <button type="submit" onClick={this.onHandleSearchClick}>Search</button>
-        </label>
+            <span onClick={this.onHandleSearchClick} className="submit-button">Search</span>
+          </label>
+        </div>
 
-        <div>
+        <div className="search-results-container">
           {this.state.results}
         </div>
       </div>
