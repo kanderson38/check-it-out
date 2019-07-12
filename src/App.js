@@ -36,11 +36,61 @@ class App extends Component {
     }
   }
 
+  checkAgainstDatabase = (user) => {
+    const docRef = firebase.firestore().collection("users").doc(user.email);
+    docRef.get().then(function (doc) {
+      if (doc.exists) {
+        console.log("Document data:", doc.data());
+      } else {
+        this.addUserToDatabase(user);
+      }
+    }).catch(function (error) {
+      console.log("Error getting document:", error);
+    });
+
+  }
+
+  addUserToDatabase = (user) => {
+    const db = firebase.firestore();
+        db.collection("users").doc(user.email).set({
+          name: user.displayName,
+          email: user.email,
+        })
+          .then(function () {
+            console.log("Document successfully written!");
+          })
+          .catch(function (error) {
+            console.error("Error writing document: ", error);
+          });
+        console.log("No such document!");
+  }
+
+  onSignIn = (event) => {
+    var provider = new firebase.auth.GoogleAuthProvider();
+
+    firebase.auth().signInWithPopup(provider).then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      // var token = result.credential.accessToken;
+      // The signed-in user info.
+      var user = result.user;
+
+      this.checkAgainstDatabase(user);
+    }).catch(function (error) {
+      // Handle Errors here.
+      // var errorCode = error.code;
+      // var errorMessage = error.message;
+      // // The email of the user's account used.
+      // var email = error.email;
+      // // The firebase.auth.AuthCredential type that was used.
+      // var credential = error.credential;
+      console.log(error);
+    });
+  }
+
   render() {
     const {
       user,
       signOut,
-      signInWithGoogle,
     } = this.props;
 
     return (
@@ -56,7 +106,7 @@ class App extends Component {
               {
                 user
                   ? <span className="login-button" onClick={signOut}>Sign out</span>
-                  : <span className="login-button" onClick={signInWithGoogle}>Sign in with Google</span>
+                  : <span className="login-button" onClick={this.onSignIn}>Sign in with Google</span>
               }
             </div>
 

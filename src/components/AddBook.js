@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
+import firebase from '../firebaseConfig.js';
+import { Redirect } from 'react-router-dom';
 import './AddBook.css';
 
 import SearchResultItem from './SearchResultItem.js'
@@ -15,6 +16,8 @@ class AddBook extends Component {
     this.state = {
       searchQuery: "",
       results: [],
+      shouldRedirect: false,
+      addedBook: "",
     }
   }
 
@@ -29,21 +32,50 @@ class AddBook extends Component {
     })
   }
 
+  addBook = (book) => {
+    // add book to db
+    const db = firebase.firestore().collection("books");
+
+    db.doc(book.title).set({
+      title: book.title,
+      author: book.author,
+      thumbnail: book.thumbnail,
+      publishedDate: book.publishedDate,
+      publisher: book.publisher,
+      previewLink: book.previewLink,
+      description: book.description,
+      createdByEmail: firebase.auth().currentUser.email,
+      createdByName: firebase.auth().currentUser.displayName,
+    })
+      .then(() => {
+        this.setState({
+          shouldRedirect: true,
+          addedBook: book.title,
+      })
+        console.log("Document successfully written!");
+      })
+      .catch(function (error) {
+        console.error("Error writing document: ", error);
+      });
+
+  }
+
+
   getBooks = () => {
     axios.get(`${API_URL}?q=${this.state.searchQuery}&printType=books`)
       .then((response) => {
-        console.log(response.data.items[0])
         const searchList = response.data.items.map((book) => {
           return <SearchResultItem
             key={book.id}
             title={book.volumeInfo.title}
-            author={book.volumeInfo.authors[0]}
-            publishedDate={book.volumeInfo.publishedDate}
-            publisher={book.volumeInfo.publisher}
-            thumbnail={book.volumeInfo.imageLinks.smallThumbnail}
-            description={book.volumeInfo.description}
-
-          // addBookCallback={this.addBook}
+            author={book.volumeInfo.authors ? book.volumeInfo.authors[0] : "unknown"}
+            publishedDate={book.volumeInfo.publishedDate ? book.volumeInfo.publishedDate : "unknown"}
+            publisher={book.volumeInfo.publisher ? book.volumeInfo.publisher : "Unknown"}
+            thumbnail={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.smallThumbnail : ""}
+            description={book.volumeInfo.description ? book.volumeInfo.description : ""}
+            previewLink={book.volumeInfo.previewLink ? book.volumeInfo.previewLink : ""}
+           
+            addBookCallback={this.addBook}
           />
         });
         this.setState({ results: searchList, movieSearch: '', clickSearch: true })
@@ -54,13 +86,16 @@ class AddBook extends Component {
   }
 
   render() {
+    if (this.state.shouldRedirect) {
+      return <Redirect to={`/books/${this.state.addedBook}`} />
+  }
 
     return (
       <div className="add-book-container">
         <div className="add-book-search-bar">
           <label>
             Search for a new book:
-          <input name="search-api" placeholder="Title, author" value={this.state.searchQuery} onChange={this.onHandleSearchChange}></input>
+          <input name="search-api" placeholder="Title" value={this.state.searchQuery} onChange={this.onHandleSearchChange}></input>
             <span onClick={this.onHandleSearchClick} className="submit-button">Search</span>
           </label>
         </div>

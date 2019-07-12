@@ -78,13 +78,13 @@ class Books extends Component {
   }
 
   onSearchBooks = (searchString) => {
-    console.log(searchString);
     const booksToSearch = this.state.books;
     const foundBooks = [];
 
     if (searchString !== "") {
       booksToSearch.forEach(function (book) {
-        if (book.props.title.includes(searchString) || book.props.author.includes(searchString)) {
+        if (book.props.title.toLowerCase().includes(searchString.toLowerCase()) || 
+        book.props.author.toLowerCase().includes(searchString.toLowerCase())) {
           foundBooks.push(book);
         }
       });

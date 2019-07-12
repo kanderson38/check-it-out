@@ -43,6 +43,7 @@ class FilterPane extends Component {
       <div className="filterpane-container">
         <SearchBar searchBooksCallback={this.props.searchBooksCallback}/>
         <div className="categories-container">
+          <p>Filter by Category:</p>
           {this.state.categories}
         </div>
       </div>

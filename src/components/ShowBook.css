@@ -1,0 +1,30 @@
+.show-book-container {
+  padding: 20px;
+  width: 70%;
+}
+
+.back-link {
+  display: block;
+  padding-bottom: 20px;
+}
+
+.book-info {
+  display: grid;
+  grid-template: minmax(50px, auto) 50px 50px / 1fr 4fr;
+}
+
+.description {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  line-height: 1.5em;
+}
+
+.thumbnail {
+  grid-row-start: 1;
+  grid-row-end: 4;
+  padding-bottom: 20px;
+}
+
+.created-by {
+  line-height: 2.5em;
+}
