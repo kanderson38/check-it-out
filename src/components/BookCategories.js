@@ -1,25 +1,29 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import firebase from '../firebaseConfig';
 
 class BookCategories extends Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
-      selectedCategories: [this.book.categories],
+      selectedCategories: [],
       unselectedCategories: [],
       editing: false,
     }
   }
 
-  componentWillMount () {
-    const categories = firebase.firestore().collection("categories")
+  componentWillMount() {
+
+    const allCategories = firebase.firestore().collection("categories");
+
   }
 
-  render () {
+  render() {
+
     return (
       <div className="categories-container">
-        Categories: (Add/edit)
+        <span className="categories-header"><strong>Categories:</strong> {this.state.editing ? `Save` : `(Add/edit)`}</span>
+        {this.props.categories}
       </div>
 
     )

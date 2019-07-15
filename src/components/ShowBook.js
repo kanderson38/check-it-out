@@ -13,6 +13,7 @@ class ShowBook extends Component {
 
     this.state = {
       book: {},
+      categories: [],
     }
   }
 
@@ -20,8 +21,11 @@ class ShowBook extends Component {
     const db = firebase.firestore().collection("books").doc(this.props.match.params.id);
     db.get().then((doc) => {
       if (doc.exists) {
+        const categories = doc.data().categories;
+        const arr = Object.keys(categories);
         this.setState({
           book: doc.data(),
+          categories: arr,
         });
       } else {
         const status = {
@@ -55,7 +59,7 @@ class ShowBook extends Component {
           <span className="created-by"><strong>Book added by:</strong> {this.state.book.createdByName ? this.state.book.createdByName : ""}</span>
         </div>
         <div className="book-categories-container">
-          <BookCategories {...this.props} book={this.state.book} />
+          <BookCategories {...this.props} categories={this.state.categories} />
         </div>
       </div>
     )
