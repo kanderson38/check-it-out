@@ -1,30 +1,54 @@
 .show-book-container {
-  padding: 20px;
-  width: 70%;
+  /* display: grid;
+  grid-template: 100px 1fr / 1fr; */
 }
 
 .back-link {
   display: block;
-  padding-bottom: 20px;
+  padding: 40px 0 20px 20px;
+  background-color: aliceblue;
 }
 
 .book-info {
   display: grid;
-  grid-template: minmax(50px, auto) 50px 50px / 1fr 4fr;
+  padding: 20px 20px 0 20px;
+  grid-template: 150px 50px 50px minmax(50px auto) 50px / 1fr 4fr;
+  grid-gap: 20px;
+  /* grid-column-start: 1;
+  grid-column-end: 2; */
+}
+
+.title {
+  /* grid-row: span 1; */
+  grid-column-start: 2;
+  grid-column-end: 3;
+
+}
+
+.author {
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+
+.publish-info {
+  grid-column-start: 2;
+  grid-column-end: 3;
 }
 
 .description {
-  grid-column-start: 1;
-  grid-column-end: 3;
+  grid-column: span 2;
   line-height: 1.5em;
 }
 
 .thumbnail {
   grid-row-start: 1;
   grid-row-end: 4;
-  padding-bottom: 20px;
+  grid-column-start: 1;
+  grid-column-end: 2;
 }
 
 .created-by {
   line-height: 2.5em;
+  grid-column: span 2;
 }
+

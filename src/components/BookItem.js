@@ -6,10 +6,10 @@ import './BookItem.css';
 class BookItem extends Component {
 
   render () {
-    
     return (
       <div className="bookitem">
-        <Link to={`${this.props.match.url}${this.props.title}`}>{this.props.title}</Link><p> {this.props.author}</p>
+        <img src={this.props.thumbnail} alt={this.props.title} className="book-item-thumbnail"></img>
+        <Link to={`${this.props.match.url}${this.props.id}`}>{this.props.title}</Link><p> {this.props.author}</p>
       </div>
     )
   }

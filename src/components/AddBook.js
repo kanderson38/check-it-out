@@ -36,7 +36,8 @@ class AddBook extends Component {
     // add book to db
     const db = firebase.firestore().collection("books");
 
-    db.doc(book.title).set({
+    db.doc(book.id).set({
+      id: book.id,
       title: book.title,
       author: book.author,
       thumbnail: book.thumbnail,
@@ -50,12 +51,21 @@ class AddBook extends Component {
       .then(() => {
         this.setState({
           shouldRedirect: true,
-          addedBook: book.title,
-      })
-        console.log("Document successfully written!");
+          addedBook: book.id,
+        })
+
+        const status = {
+          type: "success",
+          message: "Successfully added book to library!"
+        }
+        this.props.showStatusCallback(status);
       })
       .catch(function (error) {
-        console.error("Error writing document: ", error);
+        const status = {
+          type: "error",
+          message: error,
+        }
+        this.props.showStatusCallback(status);
       });
 
   }
@@ -67,6 +77,7 @@ class AddBook extends Component {
         const searchList = response.data.items.map((book) => {
           return <SearchResultItem
             key={book.id}
+            id={book.id}
             title={book.volumeInfo.title}
             author={book.volumeInfo.authors ? book.volumeInfo.authors[0] : "unknown"}
             publishedDate={book.volumeInfo.publishedDate ? book.volumeInfo.publishedDate : "unknown"}
@@ -74,11 +85,11 @@ class AddBook extends Component {
             thumbnail={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.smallThumbnail : ""}
             description={book.volumeInfo.description ? book.volumeInfo.description : ""}
             previewLink={book.volumeInfo.previewLink ? book.volumeInfo.previewLink : ""}
-           
+
             addBookCallback={this.addBook}
           />
         });
-        this.setState({ results: searchList, movieSearch: '', clickSearch: true })
+        this.setState({ results: searchList })
       })
       .catch((error) => {
         console.log(error);
@@ -88,7 +99,7 @@ class AddBook extends Component {
   render() {
     if (this.state.shouldRedirect) {
       return <Redirect to={`/books/${this.state.addedBook}`} />
-  }
+    }
 
     return (
       <div className="add-book-container">

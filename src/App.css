@@ -9,7 +9,10 @@ nav {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 0 15px 0 15px;
+  margin: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 nav li {
@@ -30,7 +33,7 @@ nav a {
 }
 
 .login-span {
-  padding-right: 10px; 
+  padding-right: 10px;
   padding-left: 10px;
 }
 
@@ -45,3 +48,22 @@ nav a {
   cursor: pointer;
 }
 
+.error {
+  background-color: rgb(248, 219, 223);
+  border: 1px solid pink;
+  color: darkred;
+}
+
+.success {
+  background-color: rgb(227, 248, 227);
+  border: 1px solid lightgreen;
+  color: darkgreen;
+}
+
+.hidden {
+  display: none;
+}
+
+.filter-pane-container {
+  height: 100%;
+}

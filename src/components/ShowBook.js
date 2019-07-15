@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import firebase from '../firebaseConfig.js';
 import { Link } from 'react-router-dom';
 
+import FilterPane from './FilterPane.js';
+
 import './ShowBook.css';
 
 class ShowBook extends Component {
@@ -16,16 +18,24 @@ class ShowBook extends Component {
 
   componentWillMount() {
     const db = firebase.firestore().collection("books").doc(this.props.match.params.id);
-
     db.get().then((doc) => {
       if (doc.exists) {
         this.setState({
           book: doc.data(),
         });
       } else {
-        console.log("No such document!");
+        const status = {
+          type: "error",
+          message: `Book does not exist`,
+        }
+        this.props.showStatusCallback(status);
       }
     }).catch(function (error) {
+      const status = {
+        type: "error",
+        message: error.message,
+      }
+      this.props.showStatusCallback(status);
       console.log("Error getting document:", error);
     });
   }
@@ -44,6 +54,9 @@ class ShowBook extends Component {
           <span className="description">{this.state.book.description}</span>
           <span className="created-by"><strong>Book added by:</strong> {this.state.book.createdByName ? this.state.book.createdByName : ""}</span>
         </div>
+        {/* <div className="filter-pane-container">
+          <FilterPane {...this.props} />
+        </div> */}
       </div>
     )
   }

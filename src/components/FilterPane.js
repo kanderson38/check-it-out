@@ -39,11 +39,12 @@ class FilterPane extends Component {
   }
 
   render() {
+    console.log(this.props.match.params.id);
     return (
       <div className="filterpane-container">
-        <SearchBar searchBooksCallback={this.props.searchBooksCallback}/>
+        {this.props.match.params.id ? <span></span> : <SearchBar searchBooksCallback={this.props.searchBooksCallback} />}
         <div className="categories-container">
-          <p>Filter by Category:</p>
+          {this.props.match.params.id ? <p><strong>Choose Categories for this Book:</strong></p> : <p><strong>Filter by Category:</strong></p>}
           {this.state.categories}
         </div>
       </div>

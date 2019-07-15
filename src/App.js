@@ -33,7 +33,31 @@ class App extends Component {
     super(props);
     this.state = {
       authUser: null,
+      statusToShow: {
+        message: "",
+        type: "hidden",
+      },
     }
+  }
+
+  showNewStatus = (status) => {
+      this.setState ({
+        statusToShow: {
+          message: status.message,
+          type: status.type,
+        }
+      });
+
+      setTimeout(this.resetStatus, 5000);
+  }
+
+  resetStatus = () => {
+    this.setState ({
+      statusToShow: {
+        message: "",
+        type: "hidden",
+      }
+    })
   }
 
   checkAgainstDatabase = (user) => {
@@ -52,17 +76,17 @@ class App extends Component {
 
   addUserToDatabase = (user) => {
     const db = firebase.firestore();
-        db.collection("users").doc(user.email).set({
-          name: user.displayName,
-          email: user.email,
-        })
-          .then(function () {
-            console.log("Document successfully written!");
-          })
-          .catch(function (error) {
-            console.error("Error writing document: ", error);
-          });
-        console.log("No such document!");
+    db.collection("users").doc(user.email).set({
+      name: user.displayName,
+      email: user.email,
+    })
+      .then(function () {
+        console.log("Document successfully written!");
+      })
+      .catch(function (error) {
+        console.error("Error writing document: ", error);
+      });
+    console.log("No such document!");
   }
 
   onSignIn = (event) => {
@@ -75,6 +99,11 @@ class App extends Component {
       var user = result.user;
 
       this.checkAgainstDatabase(user);
+      const status = {
+        type: "success",
+        message: "Successfully logged in",
+      }
+      this.showNewStatus(status);
     }).catch(function (error) {
       // Handle Errors here.
       // var errorCode = error.code;
@@ -83,7 +112,11 @@ class App extends Component {
       // var email = error.email;
       // // The firebase.auth.AuthCredential type that was used.
       // var credential = error.credential;
-      console.log(error);
+      const status = {
+        type: "error",
+        message: error.message,
+      }
+      this.showNewStatus(status);
     });
   }
 
@@ -124,8 +157,8 @@ class App extends Component {
               </li>
             </ul>
           </nav>
-          <div className="status">
-
+          <div className={`status ${this.state.statusToShow.type}`}>
+              <p>{this.state.statusToShow.message}</p>
           </div>
           <Switch>
             <Route path="/" exact component={Home} />
@@ -134,8 +167,8 @@ class App extends Component {
               render={(props) => <Books {...props} />}
             />
             <Route path="/users/" component={Users} />
-            <Route path="/books/:id" render={(props) => <ShowBook {...props} />} />
-            <Route path="/addbook/" component={AddBook} />
+            <Route path="/books/:id" render={(props) => <ShowBook {...props} showStatusCallback={this.showNewStatus} />} />
+            <Route path="/addbook/" render={(props) => <AddBook {...props} showStatusCallback={this.showNewStatus} />} />
           </Switch>
 
         </div>
