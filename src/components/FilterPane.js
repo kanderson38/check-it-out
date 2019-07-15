@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import firebase from '../firebaseConfig';
-import CategoryItem from './CategoryItem.js';
+import FilterItem from './FilterItem.js';
 import SearchBar from './SearchBar.js';
 import './FilterPane.css';
 
@@ -23,7 +23,7 @@ class FilterPane extends Component {
       });
 
       const categoryItems = allCategories.map((cat) => {
-        return <CategoryItem
+        return <FilterItem
           key={cat.name}
           name={cat.name}
           type={cat.type}
@@ -39,12 +39,11 @@ class FilterPane extends Component {
   }
 
   render() {
-    console.log(this.props.match.params.id);
     return (
       <div className="filterpane-container">
-        {this.props.match.params.id ? <span></span> : <SearchBar searchBooksCallback={this.props.searchBooksCallback} />}
+        <SearchBar searchBooksCallback={this.props.searchBooksCallback} />
         <div className="categories-container">
-          {this.props.match.params.id ? <p><strong>Choose Categories for this Book:</strong></p> : <p><strong>Filter by Category:</strong></p>}
+          <p><strong>Filter by Category:</strong></p>
           {this.state.categories}
         </div>
       </div>

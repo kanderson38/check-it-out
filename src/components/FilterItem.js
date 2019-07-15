@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './CategoryItem.css'
+import './FilterItem.css'
 
-class CategoryItem extends Component {
+class FilterItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,4 +36,4 @@ class CategoryItem extends Component {
   };
 }
 
-export default CategoryItem;
+export default FilterItem;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import firebase from '../firebaseConfig.js';
 import { Link } from 'react-router-dom';
 
-import FilterPane from './FilterPane.js';
+import BookCategories from './BookCategories.js'
 
 import './ShowBook.css';
 
@@ -54,9 +54,9 @@ class ShowBook extends Component {
           <span className="description">{this.state.book.description}</span>
           <span className="created-by"><strong>Book added by:</strong> {this.state.book.createdByName ? this.state.book.createdByName : ""}</span>
         </div>
-        {/* <div className="filter-pane-container">
-          <FilterPane {...this.props} />
-        </div> */}
+        <div className="book-categories-container">
+          <BookCategories {...this.props} book={this.state.book} />
+        </div>
       </div>
     )
   }

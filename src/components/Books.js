@@ -22,7 +22,7 @@ class Books extends Component {
 
   componentWillMount() {
     const allBooks = this.state.books;
-    const db = firebase.firestore().collection("books");
+    const db = firebase.firestore().collection("books").orderBy("title");
 
     db.get().then((querySnapshot) => {
 
@@ -33,6 +33,7 @@ class Books extends Component {
           author: doc.data().author,
           id: doc.data().id,
           thumbnail: doc.data().thumbnail,
+          categories: doc.data().categories,
         });
       });
 
@@ -44,6 +45,7 @@ class Books extends Component {
           author={book.author}
           id={book.id}
           thumbnail={book.thumbnail}
+          categories={book.categories}
         />
       });
 
@@ -52,6 +54,20 @@ class Books extends Component {
         defaultBooks: bookItems,
       });
     });
+  }
+
+  compareTitles = (a, b) => {
+      const title1 = a.title.toUpperCase();
+      const title2 = b.title.toUpperCase();
+      
+      let comparison = 0;
+      if (title1 > title2) {
+        comparison = 1;
+      } else if (title1 < title2) {
+        comparison = -1;
+      }
+      return comparison;
+    
   }
 
   onAddFilter = (name) => {
@@ -111,7 +127,8 @@ class Books extends Component {
 
     this.state.filters.forEach(function (cat) {
       const thingToCheck = 'categories.' + cat;
-      filteredResults = filteredResults.where(thingToCheck, '==', true)
+      console.log(thingToCheck);
+      filteredResults = filteredResults.where(thingToCheck, '==', true);
     });
 
     filteredResults.get().then((querySnapshot) => {
@@ -122,8 +139,11 @@ class Books extends Component {
           author: doc.data().author,
           thumbnail: doc.data().thumbnail,
           id: doc.data().id,
+          categories: doc.data().categories,
         });
       });
+
+      filteredBooks.sort(this.compareTitles);
 
 
       const bookItems = filteredBooks.map((book) => {
@@ -134,6 +154,7 @@ class Books extends Component {
           author={book.author}
           id={book.id}
           thumbnail={book.thumbnail}
+          categories={book.categories}
         />
       });
 

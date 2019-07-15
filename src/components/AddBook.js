@@ -56,7 +56,7 @@ class AddBook extends Component {
 
         const status = {
           type: "success",
-          message: "Successfully added book to library!"
+          message: "Successfully added book to library! Add categories on this page."
         }
         this.props.showStatusCallback(status);
       })
