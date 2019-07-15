@@ -6,14 +6,14 @@ class BookCategories extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      selectedCategories: [],
+      selectedCategories: [this.book.categories],
       unselectedCategories: [],
       editing: false,
     }
   }
 
   componentWillMount () {
-
+    const categories = firebase.firestore().collection("categories")
   }
 
   render () {
