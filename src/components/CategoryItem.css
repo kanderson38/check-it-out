@@ -1,0 +1,42 @@
+.selected {
+  background-color: rgb(225, 247, 225);
+  border: 1px darkgreen solid;
+}
+
+.unselected { 
+  background-color: lightgrey;
+  border: 1px solid grey;
+}
+
+.category-item {
+  margin: 10px; 
+  padding: 10px;
+  border-radius: 15px;
+  line-height: 2em;
+  display: flex;
+  justify-items: flex-start;
+  align-items: center;
+  width: auto;
+}
+
+.category-item input {
+  display: none;
+}
+
+.unselected .checkmark::before {
+  content: "+";
+  font-weight: bold;
+  font-size: 2em;
+  align-content: center;
+  padding-right: 10px;
+  color: grey;
+}
+
+.selected .checkmark::before {
+  content: "-";
+  font-weight: bold;
+  font-size: 2em;
+  align-content: center;
+  padding-right: 10px;
+  color: darkgreen;
+}

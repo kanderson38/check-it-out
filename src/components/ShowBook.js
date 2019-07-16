@@ -70,10 +70,9 @@ class ShowBook extends Component {
       this.props.showStatusCallback(status);
       console.log("Error getting document:", error);
     });
-
-
   }
 
+  
 
 
   render() {
@@ -90,7 +89,7 @@ class ShowBook extends Component {
           <span className="created-by"><strong>Book added by:</strong> {this.state.book.createdByName ? this.state.book.createdByName : ""}</span>
         </div>
         <div className="book-categories-container">
-         { this.state.unselectedCategories.length > 0 ? <BookCategories {...this.props}
+         { this.state.unselectedCategories.length > 0 || this.state.selectedCategories.length > 0 ? <BookCategories {...this.props}
             categories={this.state.categories}
             selectedCategories={this.state.selectedCategories}
             unselectedCategories={this.state.unselectedCategories}

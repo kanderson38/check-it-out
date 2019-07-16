@@ -1,0 +1,24 @@
+.categories-container {
+  margin: 20px;
+  padding: 20px;
+  border-radius: 15px;
+  display: block;
+  background-color: aliceblue;
+}
+
+.categories-header {
+  display: block;
+  margin-bottom: 50px;
+}
+
+.edit-button {
+  cursor: pointer;
+  background-color: lightblue;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.category-items-container {
+  display: flex;
+  align-items: flex-start;
+}

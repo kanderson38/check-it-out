@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import firebase from '../firebaseConfig';
 
 import CategoryItem from './CategoryItem';
+import './BookCategories.css';
 
 class BookCategories extends Component {
 
@@ -14,9 +15,10 @@ class BookCategories extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
     this.listCategories();
   }
+
+  
 
   listCategories = () => {
     let allCategories = [];
@@ -24,7 +26,7 @@ class BookCategories extends Component {
     this.props.selectedCategories.forEach((cat) => {
       console.log(cat);
       allCategories.push(
-        <CategoryItem 
+        <CategoryItem
           name={cat}
           selected={true}
         />
@@ -33,14 +35,14 @@ class BookCategories extends Component {
 
     this.props.unselectedCategories.forEach((cat) => {
       allCategories.push(
-        <CategoryItem 
-        name={cat}
-        selected={false}
+        <CategoryItem
+          name={cat}
+          selected={false}
         />
       )
     });
 
-    this.setState ({
+    this.setState({
       allCategoryItems: allCategories,
     });
     console.log(allCategories);
@@ -49,8 +51,10 @@ class BookCategories extends Component {
   render() {
     return (
       <div className="categories-container" >
-        <span className="categories-header"><strong>Categories:</strong> {this.state.editing ? `Save` : `(Add/edit)`}</span>
-        {this.state.allCategoryItems}
+        <span className="categories-header"><strong>Categories:</strong> {this.state.editing ? <span className="edit-button">Save</span> : <span className="edit-button">Add/Edit</span>}</span>
+        <div className="category-items-container">
+          {this.state.allCategoryItems}
+        </div>
       </div >
 
     )
