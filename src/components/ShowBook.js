@@ -14,10 +14,12 @@ class ShowBook extends Component {
     this.state = {
       book: {},
       categories: [],
+      selectedCategories: [],
+      unselectedCategories: [],
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const db = firebase.firestore().collection("books").doc(this.props.match.params.id);
     db.get().then((doc) => {
       if (doc.exists) {
@@ -26,6 +28,32 @@ class ShowBook extends Component {
         this.setState({
           book: doc.data(),
           categories: arr,
+        });
+
+        const unselectedCats = [];
+        const selectedCats = [];
+
+        const dbCats = firebase.firestore().collection("categories");
+        dbCats.get().then((querySnapshot) => {
+
+          querySnapshot.forEach((doc) => {
+            if (!this.state.categories.includes(doc.data().name)) {
+
+              unselectedCats.push(
+                doc.data().name
+              );
+            } else {
+              selectedCats.push(
+                doc.data().name
+              )
+            }
+          });
+          this.setState({
+            selectedCategories: selectedCats,
+            unselectedCategories: unselectedCats,
+          });
+          console.log(this.state);
+
         });
       } else {
         const status = {
@@ -42,11 +70,14 @@ class ShowBook extends Component {
       this.props.showStatusCallback(status);
       console.log("Error getting document:", error);
     });
+
+
   }
 
 
 
   render() {
+    console.log(this.state);
     return (
       <div className="show-book-container">
         <Link to="/books/" className="back-link">Back to book list</Link>
@@ -59,7 +90,11 @@ class ShowBook extends Component {
           <span className="created-by"><strong>Book added by:</strong> {this.state.book.createdByName ? this.state.book.createdByName : ""}</span>
         </div>
         <div className="book-categories-container">
-          <BookCategories {...this.props} categories={this.state.categories} />
+         { this.state.unselectedCategories.length > 0 ? <BookCategories {...this.props}
+            categories={this.state.categories}
+            selectedCategories={this.state.selectedCategories}
+            unselectedCategories={this.state.unselectedCategories}
+          /> : null}
         </div>
       </div>
     )

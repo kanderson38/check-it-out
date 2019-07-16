@@ -20,7 +20,7 @@ class Books extends Component {
 
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const allBooks = this.state.books;
     const db = firebase.firestore().collection("books").orderBy("title");
 

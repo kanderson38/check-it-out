@@ -1,30 +1,57 @@
 import React, { Component } from 'react';
 import firebase from '../firebaseConfig';
 
+import CategoryItem from './CategoryItem';
+
 class BookCategories extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      selectedCategories: [],
-      unselectedCategories: [],
+      allCategoryItems: [],
       editing: false,
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    console.log(this.props);
+    this.listCategories();
+  }
 
-    const allCategories = firebase.firestore().collection("categories");
+  listCategories = () => {
+    let allCategories = [];
 
+    this.props.selectedCategories.forEach((cat) => {
+      console.log(cat);
+      allCategories.push(
+        <CategoryItem 
+          name={cat}
+          selected={true}
+        />
+      );
+    });
+
+    this.props.unselectedCategories.forEach((cat) => {
+      allCategories.push(
+        <CategoryItem 
+        name={cat}
+        selected={false}
+        />
+      )
+    });
+
+    this.setState ({
+      allCategoryItems: allCategories,
+    });
+    console.log(allCategories);
   }
 
   render() {
-
     return (
-      <div className="categories-container">
+      <div className="categories-container" >
         <span className="categories-header"><strong>Categories:</strong> {this.state.editing ? `Save` : `(Add/edit)`}</span>
-        {this.props.categories}
-      </div>
+        {this.state.allCategoryItems}
+      </div >
 
     )
   }
