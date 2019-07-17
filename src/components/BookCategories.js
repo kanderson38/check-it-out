@@ -28,7 +28,7 @@ class BookCategories extends Component {
           name={cat}
           selected={true}
           editing={editing}
-
+          updateSelectedCategoriesCallback={this.props.updateSelectedCategoriesCallback}
         />
       );
     });
@@ -41,6 +41,7 @@ class BookCategories extends Component {
           name={cat}
           selected={false}
           editing={editing}
+          updateSelectedCategoriesCallback={this.props.updateSelectedCategoriesCallback}
           hidden={isHidden}
         />
       )
@@ -49,16 +50,17 @@ class BookCategories extends Component {
     this.setState({
       allCategoryItems: allCategories,
     });
-  }
+  };
 
   saveCategories = () => {
     this.changeEditState();
-
-  }
+    console.log(this.props);
+    this.props.saveSelectedCategoriesCallback();
+  };
 
   editCategories = () => {
     this.changeEditState();
-  }
+  };
 
   changeEditState = () => {
     const isEditing = !this.state.editing;

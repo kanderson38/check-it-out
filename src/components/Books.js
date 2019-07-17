@@ -76,7 +76,6 @@ class Books extends Component {
       allFilters.push(name);
     }
 
-    // console.log(allFilters);
     this.setState({
       filters: allFilters,
     });
@@ -127,7 +126,6 @@ class Books extends Component {
 
     this.state.filters.forEach(function (cat) {
       const thingToCheck = 'categories.' + cat;
-      console.log(thingToCheck);
       filteredResults = filteredResults.where(thingToCheck, '==', true);
     });
 

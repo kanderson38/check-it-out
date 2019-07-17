@@ -15,6 +15,7 @@ class CategoryItem extends Component {
       isChecked: !checked,
     })
 
+  this.props.updateSelectedCategoriesCallback(event.target.name, checked);
 
   }
 

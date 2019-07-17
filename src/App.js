@@ -48,7 +48,7 @@ class App extends Component {
         }
       });
 
-      setTimeout(this.resetStatus, 5000);
+      setTimeout(this.resetStatus, 8000);
   }
 
   resetStatus = () => {
