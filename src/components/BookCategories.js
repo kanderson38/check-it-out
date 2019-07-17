@@ -52,17 +52,15 @@ class BookCategories extends Component {
   }
 
   saveCategories = () => {
+    this.changeEditState();
 
-    const isEditing = !this.state.editing;
-
-    this.listCategories(isEditing);
-
-    this.setState({
-      editing: !this.state.editing,
-    })
   }
 
   editCategories = () => {
+    this.changeEditState();
+  }
+
+  changeEditState = () => {
     const isEditing = !this.state.editing;
 
     this.listCategories(isEditing);

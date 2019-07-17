@@ -15,20 +15,22 @@ class CategoryItem extends Component {
       isChecked: !checked,
     })
 
-    
+
   }
 
   render() {
     return (
-      <label className={this.state.isChecked ? "category-item selected" : (this.state.hidden ? "category-item hidden" : "category-item unselected")}>
-        <input
-          name={this.props.name}
-          type="checkbox"
-          checked={this.state.isChecked}
-          onChange={this.handleInputChange} />
+      <div className={this.props.hidden ? "hidden" : ""}>
+        <label className={this.state.isChecked ? "category-item selected" : "category-item unselected"}>
+          <input
+            name={this.props.name}
+            type="checkbox"
+            checked={this.state.isChecked}
+            onChange={this.handleInputChange} />
           <span className={this.props.editing ? "checkmark" : "checkmark hidden"}></span>
-        {this.props.name}
-      </label>
+          {this.props.name}
+        </label>
+      </div>
     )
   };
 }
