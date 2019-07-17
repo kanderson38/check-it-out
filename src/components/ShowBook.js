@@ -24,13 +24,30 @@ class ShowBook extends Component {
     db.get().then((doc) => {
       if (doc.exists) {
         const categories = doc.data().categories;
-        const arr = Object.keys(categories);
+        const arr = categories ? Object.keys(categories) : [];
         this.setState({
           book: doc.data(),
           categories: arr,
         });
 
-        const unselectedCats = [];
+        
+      } else {
+        const status = {
+          type: "error",
+          message: `Book does not exist`,
+        }
+        this.props.showStatusCallback(status);
+      }
+    }).catch((error) => {
+      const status = {
+        type: "error",
+        message: error.message,
+      }
+      this.props.showStatusCallback(status);
+      console.log("Error getting document:", error);
+    });
+
+    const unselectedCats = [];
         const selectedCats = [];
 
         const dbCats = firebase.firestore().collection("categories");
@@ -52,31 +69,15 @@ class ShowBook extends Component {
             selectedCategories: selectedCats,
             unselectedCategories: unselectedCats,
           });
-          console.log(this.state);
 
         });
-      } else {
-        const status = {
-          type: "error",
-          message: `Book does not exist`,
-        }
-        this.props.showStatusCallback(status);
-      }
-    }).catch(function (error) {
-      const status = {
-        type: "error",
-        message: error.message,
-      }
-      this.props.showStatusCallback(status);
-      console.log("Error getting document:", error);
-    });
   }
 
-  
+
 
 
   render() {
-    console.log(this.state);
+    if (this.state.book.title) {
     return (
       <div className="show-book-container">
         <Link to="/books/" className="back-link">Back to book list</Link>
@@ -97,6 +98,9 @@ class ShowBook extends Component {
         </div>
       </div>
     )
+    } else {
+      return (null);
+    }
   }
 }
 

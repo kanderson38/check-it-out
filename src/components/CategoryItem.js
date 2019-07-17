@@ -5,7 +5,7 @@ class CategoryItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isChecked: false,
+      isChecked: this.props.selected,
     }
   }
 
@@ -15,23 +15,18 @@ class CategoryItem extends Component {
       isChecked: !checked,
     })
 
-    if(this.state.isChecked === false) {
-      this.props.addFilterCallback(event.target.name);
-    } else {
-      this.props.removeFilterCallback(event.target.name);
-    }
+    
   }
 
   render() {
-    console.log(this.props.name);
     return (
-      <label className={this.props.selected ? "category-item selected" : "category-item unselected"}>
+      <label className={this.state.isChecked ? "category-item selected" : (this.state.hidden ? "category-item hidden" : "category-item unselected")}>
         <input
           name={this.props.name}
           type="checkbox"
           checked={this.state.isChecked}
           onChange={this.handleInputChange} />
-          <span class="checkmark"></span>
+          <span className={this.props.editing ? "checkmark" : "checkmark hidden"}></span>
         {this.props.name}
       </label>
     )

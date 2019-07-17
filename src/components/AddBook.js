@@ -17,7 +17,7 @@ class AddBook extends Component {
       searchQuery: "",
       results: [],
       shouldRedirect: false,
-      addedBook: "",
+      addedBook: null,
     }
   }
 

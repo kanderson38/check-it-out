@@ -15,29 +15,33 @@ class BookCategories extends Component {
   }
 
   componentDidMount() {
-    this.listCategories();
+    this.listCategories(this.state.editing);
   }
 
-  
-
-  listCategories = () => {
+  listCategories = (editing) => {
     let allCategories = [];
-
     this.props.selectedCategories.forEach((cat) => {
-      console.log(cat);
+
       allCategories.push(
         <CategoryItem
+          key={cat}
           name={cat}
           selected={true}
+          editing={editing}
+
         />
       );
     });
 
+    const isHidden = !editing;
     this.props.unselectedCategories.forEach((cat) => {
       allCategories.push(
         <CategoryItem
+          key={cat}
           name={cat}
           selected={false}
+          editing={editing}
+          hidden={isHidden}
         />
       )
     });
@@ -45,13 +49,36 @@ class BookCategories extends Component {
     this.setState({
       allCategoryItems: allCategories,
     });
-    console.log(allCategories);
+  }
+
+  saveCategories = () => {
+
+    const isEditing = !this.state.editing;
+
+    this.listCategories(isEditing);
+
+    this.setState({
+      editing: !this.state.editing,
+    })
+  }
+
+  editCategories = () => {
+    const isEditing = !this.state.editing;
+
+    this.listCategories(isEditing);
+
+    this.setState({
+      editing: !this.state.editing,
+    })
   }
 
   render() {
     return (
       <div className="categories-container" >
-        <span className="categories-header"><strong>Categories:</strong> {this.state.editing ? <span className="edit-button">Save</span> : <span className="edit-button">Add/Edit</span>}</span>
+        <span className="categories-header">
+          <strong>Categories:</strong>
+          {this.state.editing ? <span className="edit-button" onClick={this.saveCategories}>Save</span> : <span className="edit-button" onClick={this.editCategories}>Add/Edit</span>}
+        </span>
         <div className="category-items-container">
           {this.state.allCategoryItems}
         </div>

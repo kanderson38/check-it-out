@@ -12,7 +12,7 @@
   margin: 10px; 
   padding: 10px;
   border-radius: 15px;
-  line-height: 2em;
+  height: 2em;
   display: flex;
   justify-items: flex-start;
   align-items: center;
@@ -26,7 +26,7 @@
 .unselected .checkmark::before {
   content: "+";
   font-weight: bold;
-  font-size: 2em;
+  font-size: 1.5em;
   align-content: center;
   padding-right: 10px;
   color: grey;
@@ -35,7 +35,7 @@
 .selected .checkmark::before {
   content: "-";
   font-weight: bold;
-  font-size: 2em;
+  font-size: 1.5em;
   align-content: center;
   padding-right: 10px;
   color: darkgreen;
