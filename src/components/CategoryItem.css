@@ -9,7 +9,8 @@
 }
 
 .category-item {
-  margin: 10px; 
+  cursor: pointer;
+  margin: 10px 10px 0 0; 
   padding: 10px;
   border-radius: 15px;
   height: 2em;

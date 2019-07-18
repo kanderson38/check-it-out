@@ -1,5 +1,13 @@
 .category-checkbox {
   display: block;
   margin-left: 20px;
-  line-height: 1.5em;
+  line-height: 2em;
+}
+
+.grade-level {
+  background-color: beige;
+  border: 1px solid brown;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 10px;
 }

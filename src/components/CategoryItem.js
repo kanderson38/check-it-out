@@ -10,13 +10,14 @@ class CategoryItem extends Component {
   }
 
   handleInputChange = (event) => {
+    if (this.props.editing) {
     const checked = this.state.isChecked;
     this.setState({
       isChecked: !checked,
     })
 
   this.props.updateSelectedCategoriesCallback(event.target.name, checked);
-
+  }
   }
 
   render() {

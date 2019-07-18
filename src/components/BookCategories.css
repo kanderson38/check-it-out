@@ -2,13 +2,14 @@
   margin: 20px;
   padding: 20px;
   border-radius: 15px;
-  display: block;
+  /* display: grid;
+  grid-template: 50px 1fr / 1fr 3fr; */
   background-color: aliceblue;
 }
 
 .categories-header {
   display: block;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 
 .edit-button {
@@ -22,4 +23,26 @@
 .category-items-container {
   display: flex;
   align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.new-categories {
+  background-color: beige;
+  border: 1px solid brown;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.new-categories input {
+  width: 30%;
+  margin-left: 20px;
+  line-height: 2em;
+}
+
+.create-category-submit {
+  cursor: pointer;
+  background-color: lightblue;
+  border-radius: 5px;
+  padding: 5px;
+  margin-left: 15px;
 }

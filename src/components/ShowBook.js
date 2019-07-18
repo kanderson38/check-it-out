@@ -114,18 +114,15 @@ class ShowBook extends Component {
       const filtered = unselected.filter(function (currentName) {
         return currentName !== name;
       });
-      console.log(filtered);
       this.setState({
         selectedCategories: selected,
         unselectedCategories: filtered,
       })
-      console.log(this.state.selectedCategories);
     } else {
       unselected.push(name);
       const filtered = selected.filter(function (currentName) {
         return currentName !== name;
       });
-      console.log(filtered);
       this.setState({
         unselectedCategories: unselected,
         selectedCategories: filtered,
@@ -153,6 +150,7 @@ class ShowBook extends Component {
               unselectedCategories={this.state.unselectedCategories}
               updateSelectedCategoriesCallback={this.updateSelectedCategories}
               saveSelectedCategoriesCallback={this.saveSelectedCategories}
+              showStatusCallback={this.props.showStatusCallback}
             /> : null}
           </div>
         </div>

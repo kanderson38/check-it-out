@@ -5,6 +5,7 @@ import Home from "./components/Home.js";
 import Books from './components/Books.js';
 import ShowBook from './components/ShowBook.js';
 import AddBook from './components/AddBook.js';
+import Recommendations from './Recommendations.js';
 
 import withFirebaseAuth from 'react-with-firebase-auth';
 import 'firebase/auth';
@@ -143,17 +144,14 @@ class App extends Component {
               }
             </div>
 
-            <h1 className="logo">Check It Out</h1>
+            <h1 className="logo"><Link to="/">Check It Out</Link></h1>
 
             <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
               <li>
                 <Link to="/books/">Full Library</Link>
               </li>
               <li>
-                <Link to="/users/">Users</Link>
+                <Link to="/recs/">Recommendation Requests</Link>
               </li>
             </ul>
           </nav>
@@ -164,11 +162,12 @@ class App extends Component {
             <Route path="/" exact component={Home} />
             <Route
               path='/books/' exact
-              render={(props) => <Books {...props} />}
+              render={(props) => <Books {...props} showStatusCallback={this.showNewStatus} />}
             />
             <Route path="/users/" component={Users} />
             <Route path="/books/:id" render={(props) => <ShowBook {...props} showStatusCallback={this.showNewStatus} />} />
             <Route path="/addbook/" render={(props) => <AddBook {...props} showStatusCallback={this.showNewStatus} />} />
+            <Route path="/recs/" render={(props) => <Recommendations {...props} showStatusCallback={this.showNewStatus} />} />
           </Switch>
 
         </div>

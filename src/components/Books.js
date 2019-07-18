@@ -37,17 +37,7 @@ class Books extends Component {
         });
       });
 
-      const bookItems = allBooks.map((book) => {
-        return <BookItem
-          {...this.props}
-          key={book.id}
-          title={book.title}
-          author={book.author}
-          id={book.id}
-          thumbnail={book.thumbnail}
-          categories={book.categories}
-        />
-      });
+      const bookItems = this.mapBooks(allBooks);
 
       this.setState({
         books: bookItems,
@@ -56,18 +46,43 @@ class Books extends Component {
     });
   }
 
+  deleteBook = (id) => {
+    // delete book from db
+    if (window.confirm("Are you sure you want to delete this book?")) {
+      const db = firebase.firestore();
+
+      db.collection("books").doc(id).delete().then(() => {
+        const status = {
+          type: "success",
+          message: "Successfully deleted book from library!",
+        }
+        this.props.showStatusCallback(status);
+        console.log("Document successfully deleted!");
+      }).catch((error) => {
+        console.error("Error removing document: ", error);
+        const status = {
+          type: "error",
+          message: error,
+        }
+        this.props.showStatusCallback(status);
+      });
+
+      this.onFilterResults();
+    }
+  }
+
   compareTitles = (a, b) => {
-      const title1 = a.title.toUpperCase();
-      const title2 = b.title.toUpperCase();
-      
-      let comparison = 0;
-      if (title1 > title2) {
-        comparison = 1;
-      } else if (title1 < title2) {
-        comparison = -1;
-      }
-      return comparison;
-    
+    const title1 = a.title.toUpperCase();
+    const title2 = b.title.toUpperCase();
+
+    let comparison = 0;
+    if (title1 > title2) {
+      comparison = 1;
+    } else if (title1 < title2) {
+      comparison = -1;
+    }
+    return comparison;
+
   }
 
   onAddFilter = (name) => {
@@ -144,22 +159,29 @@ class Books extends Component {
       filteredBooks.sort(this.compareTitles);
 
 
-      const bookItems = filteredBooks.map((book) => {
-        return <BookItem
-          {...this.props}
-          key={book.id}
-          title={book.title}
-          author={book.author}
-          id={book.id}
-          thumbnail={book.thumbnail}
-          categories={book.categories}
-        />
-      });
+      const bookItems = this.mapBooks(filteredBooks);
 
       this.setState({
         books: bookItems,
       });
     });
+  }
+
+  mapBooks = (books) => {
+    const bookItems = books.map((book) => {
+      return <BookItem
+        {...this.props}
+        key={book.id}
+        title={book.title}
+        author={book.author}
+        id={book.id}
+        thumbnail={book.thumbnail}
+        categories={book.categories}
+        deleteBookCallback={this.deleteBook}
+      />
+    });
+
+    return (bookItems);
   }
 
   render() {

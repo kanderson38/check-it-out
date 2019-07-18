@@ -23,8 +23,9 @@ class FilterItem extends Component {
   }
 
   render() {
+    const checkboxClass = `category-checkbox ${this.props.type}`
     return (
-      <label className="category-checkbox">
+      <label className={checkboxClass}>
         <input
           name={this.props.name}
           type="checkbox"
