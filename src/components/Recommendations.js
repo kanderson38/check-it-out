@@ -20,7 +20,7 @@ class Recommendations extends Component {
     db.collection("recommendationRequests").get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
+        
         allData.push (
           {
             id: doc.id,
@@ -54,7 +54,6 @@ class Recommendations extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div className="recommendations-container" >
         <div className="new-recommendation-container"><Link to="/addrec/">Request a new recommendation</Link></div>

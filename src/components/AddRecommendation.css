@@ -1,0 +1,25 @@
+.add-rec-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-rec-instructions {
+  width: 70vw;
+}
+
+.message-text-area-container {
+  display: flex;
+  justify-content: center;
+}
+
+.message-text-area {
+  width: 70vw;
+  height: 10vw;
+  font-family: 'Comfortaa', sans-serif;
+}
+
+.book-categories-container {
+  width: 100vw;
+}

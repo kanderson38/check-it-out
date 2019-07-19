@@ -48,6 +48,7 @@ class BookCategories extends Component {
             selected={false}
             editing={this.state.editing}
             updateSelectedCategoriesCallback={this.props.updateSelectedCategoriesCallback}
+            recommendationsPage={this.props.recommendationsPage}
           />
         )
 
@@ -104,7 +105,9 @@ class BookCategories extends Component {
 
   saveCategories = () => {
     this.changeEditState();
+    if (!this.props.match.url === "/addrec/") {
     this.props.saveSelectedCategoriesCallback();
+    }
   };
 
   editCategories = () => {
