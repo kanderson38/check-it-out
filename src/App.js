@@ -142,8 +142,8 @@ class App extends Component {
               }
               {
                 user
-                  ? <span className="button login-button" onClick={signOut}>Sign out</span>
-                  : <span className="button login-button" onClick={this.onSignIn}>Sign in with Google</span>
+                  ? <span className="button" onClick={signOut}>Sign out</span>
+                  : <span className="button" onClick={this.onSignIn}>Sign in with Google</span>
               }
             </div>
 

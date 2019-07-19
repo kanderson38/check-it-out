@@ -23,7 +23,7 @@ class CategoryItem extends Component {
   render() {
     return (
       <div className={this.props.hidden ? "hidden" : ""}>
-        <label className={this.state.isChecked ? "category-item selected" : "category-item unselected"}>
+        <label className={this.state.isChecked ? "category-button selected" : "category-button unselected"}>
           <input
             name={this.props.name}
             type="checkbox"

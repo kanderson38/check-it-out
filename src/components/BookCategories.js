@@ -125,8 +125,8 @@ class BookCategories extends Component {
     return (
       <div className="categories-container" >
         <span className="categories-header">
-          <strong>Categories:</strong>
-          {this.state.editing ? <span className="edit-button" onClick={this.saveCategories}>Save</span> : <span className="edit-button" onClick={this.editCategories}>Add/Edit</span>}
+          <strong>Categories: </strong>
+          {this.state.editing ? <span className="button" onClick={this.saveCategories}>Save</span> : <span className="button" onClick={this.editCategories}>Add/Edit</span>}
         </span>
         <div className={this.state.editing ? "new-categories" : "hidden"}>
           <span>

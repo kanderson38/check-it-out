@@ -28,4 +28,10 @@ margin-right: 15px;
   display: block;
   font-weight: normal;
   color: darkred;
+  cursor: pointer;
+}
+
+.category-button {
+  cursor: default;
+  display: inline;
 }

@@ -10,7 +10,7 @@ class RecommendationItem extends Component {
 
   formatCategories = () => {
     return (this.props.categories.map((cat, i) => {
-      return (<li className="rec-category" key={i}>{cat}</li>);
+      return (<li className="category-button" key={i}>{cat}</li>);
     })
 
     )
