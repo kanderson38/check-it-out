@@ -1,0 +1,14 @@
+.recommendations-container {
+}
+
+.recommendations-container div:nth-of-type(even) {
+  background-color: lightgrey;
+}
+
+.new-recommendation-container {
+  padding: 20px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  background-color: aliceblue;
+}

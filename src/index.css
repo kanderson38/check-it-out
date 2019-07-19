@@ -8,7 +8,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
-  padding-top: 60px;
+  padding-top: 65px;
 }
 
 h1 {
@@ -18,4 +18,18 @@ h1 {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.category-button {
+  background-color: beige;
+  border: 1px solid brown;
+  padding: 10px;
+  border-radius: 10px;
+  line-height: 2em;
+}
+
+.button {
+  padding: 10px;
+  background-color: lightblue;
+  border-radius: 5px;
 }

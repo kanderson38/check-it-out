@@ -107,7 +107,7 @@ class AddBook extends Component {
           <label>
             Search for a new book:
           <input name="search-api" placeholder="Title" value={this.state.searchQuery} onChange={this.onHandleSearchChange}></input>
-            <span onClick={this.onHandleSearchClick} className="submit-button">Search</span>
+            <span onClick={this.onHandleSearchClick} className="button submit-button">Search</span>
           </label>
         </div>
 

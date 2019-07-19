@@ -1,0 +1,31 @@
+.rec-item-container {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rec-category-list {
+  list-style-type: none;
+}
+
+.rec-category {
+padding: 10px;
+background-color: beige;
+border-radius: 10px;
+border: 1px solid brown;
+margin-right: 15px;
+  display: inline;
+}
+
+
+.rec-name-date {
+  font-weight: bold;
+
+}
+
+.delete-rec-link {
+  display: block;
+  font-weight: normal;
+  color: darkred;
+}

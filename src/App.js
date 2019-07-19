@@ -5,7 +5,9 @@ import Home from "./components/Home.js";
 import Books from './components/Books.js';
 import ShowBook from './components/ShowBook.js';
 import AddBook from './components/AddBook.js';
-import Recommendations from './Recommendations.js';
+import Recommendations from './components/Recommendations.js';
+import AddRecommendation from './components/AddRecommendation.js';
+import ShowRecommendation from './components/ShowRecommendation.js';
 
 import withFirebaseAuth from 'react-with-firebase-auth';
 import 'firebase/auth';
@@ -122,6 +124,7 @@ class App extends Component {
   }
 
   render() {
+    
     const {
       user,
       signOut,
@@ -139,8 +142,8 @@ class App extends Component {
               }
               {
                 user
-                  ? <span className="login-button" onClick={signOut}>Sign out</span>
-                  : <span className="login-button" onClick={this.onSignIn}>Sign in with Google</span>
+                  ? <span className="button login-button" onClick={signOut}>Sign out</span>
+                  : <span className="button login-button" onClick={this.onSignIn}>Sign in with Google</span>
               }
             </div>
 
@@ -167,7 +170,10 @@ class App extends Component {
             <Route path="/users/" component={Users} />
             <Route path="/books/:id" render={(props) => <ShowBook {...props} showStatusCallback={this.showNewStatus} />} />
             <Route path="/addbook/" render={(props) => <AddBook {...props} showStatusCallback={this.showNewStatus} />} />
-            <Route path="/recs/" render={(props) => <Recommendations {...props} showStatusCallback={this.showNewStatus} />} />
+            <Route path="/recs/" exact render={(props) => <Recommendations {...props} {...this.props} showStatusCallback={this.showNewStatus} />} />
+            <Route path="/addrec/" render={(props) => <AddRecommendation {...props} showStatusCallback={this.showNewStatus} />} />
+            <Route path="/recs/:id" render={(props) => <ShowRecommendation {...props} showStatusCallback={this.showNewStatus} />} />
+           
           </Switch>
 
         </div>
