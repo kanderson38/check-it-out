@@ -14,6 +14,16 @@ margin: 10px;
   display: flex;
   justify-items: flex-start;
   align-items: center;
+
+}
+
+.show-category {
+
+  display: block;
+}
+
+.show-categories-container {
+  display: flex;
 }
 
 /* .category-item {
@@ -28,7 +38,7 @@ margin: 10px;
   width: auto;
 } */
 
-.category-button input {
+.checkbox-hidden {
   display: none;
 }
 

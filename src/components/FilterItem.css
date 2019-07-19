@@ -1,13 +1,11 @@
-.category-checkbox {
-  display: block;
-
+.category-button {
   margin: 10px;
 }
 
+
+
 .grade-level {
-  background-color: rgb(212, 245, 212);
-  border: 1px solid darkgreen;
-  border-radius: 10px;
-  padding: 5px;
-  line-height: 1.5em;
+  background-color: rgb(237, 212, 245);
+  border: 1px solid darkorchid;
+  
 }

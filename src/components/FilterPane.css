@@ -3,3 +3,8 @@
   padding: 20px;
   height: 100%;
 }
+
+.categories-container {
+  display: flex;
+  flex-direction: column;
+}
