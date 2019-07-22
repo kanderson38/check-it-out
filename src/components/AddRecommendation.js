@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import firebase from '../firebaseConfig';
+import { Redirect } from 'react-router-dom';
 
 import BookCategories from './BookCategories';
 import './AddRecommendation.css'
@@ -12,6 +13,8 @@ class AddRecommendation extends Component {
       selectedCategories: [],
       unselectedCategories: [],
       categories: [],
+      note: "",
+      shouldRedirect: false,
     }
   }
 
@@ -76,7 +79,47 @@ class AddRecommendation extends Component {
     }
   }
 
+  saveCurrentRecRequest = () => {
+    const db = firebase.firestore();
+
+    db.collection("recommendationRequests").add({
+      user: this.props.user.displayName,
+      categories: this.state.selectedCategories,
+      note: this.state.noteText,
+      responses: [],
+      dateCreated: firebase.firestore.FieldValue.serverTimestamp(),
+    })
+      .then((docRef) => {
+        const status = {
+          type:"success",
+          message: "Successfully submitted request!"
+        };
+        this.props.showStatusCallback(status);
+        this.setState({
+          shouldRedirect: true,
+          newDoc: docRef.id,
+        })
+      })
+      .catch((error) => {
+        const status = {
+          type: "error",
+          message: error,
+        }
+        this.props.showStatusCallback(status);
+        console.error("Error writing document: ", error);
+      });
+  }
+
+  updateTextArea = (event) => {
+    this.setState ({
+      noteText: event.target.value,
+    })
+  }
+
   render() {
+    if (this.state.shouldRedirect) {
+      return <Redirect to={`/recs/${this.state.newDoc}`} />
+    }
     return (
       <div className="add-rec-container">
         <div className="add-rec-instructions"><p>
@@ -86,9 +129,9 @@ class AddRecommendation extends Component {
             To request recommendations, select the categories you would like the recommended books to have,
             and then click the "Submit" button to notify all users that you would like them to
           add new books that meet your criteria. You may also add a note to further describe the kind of books you're looking for.</p></div>
-        
 
-        <div className="book-categories-container">
+
+        <div className="add-rec-categories-container">
           <BookCategories {...this.props}
             categories={this.state.categories}
             selectedCategories={this.state.selectedCategories}
@@ -99,8 +142,9 @@ class AddRecommendation extends Component {
           />
         </div>
         <div className="message-text-area-container">
-          <textarea className="message-text-area" placeholder="Additional notes"></textarea>
+          <textarea className="message-text-area" value={this.state.noteText} placeholder="Additional notes" onChange={this.updateTextArea}></textarea>
         </div>
+        <span className="button save-button" onClick={this.saveCurrentRecRequest}>Submit Request</span>
 
       </div>
     )

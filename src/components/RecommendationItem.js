@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import * as moment from 'moment'
-import firebase from "../firebaseConfig";
+import * as moment from 'moment';
 
 import { Link } from 'react-router-dom';
 
@@ -28,7 +27,7 @@ class RecommendationItem extends Component {
               {formatted}: Submitted by
           {` ${this.props.requester}`}
           </Link>
-          <span className="delete-rec-link"><small>Delete this request {this.props.user.displayName}</small></span>
+          <span className="delete-rec-link"><small>Delete this request {this.props.user.email}</small></span>
             </span>
             <ul className="rec-category-list">{this.formatCategories()}</ul>
             <span className="responses">{this.props.responses.length} {this.props.responses.length === 1 ? "response" : "responses"}</span>

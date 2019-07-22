@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import firebase from '../firebaseConfig';
+import * as moment from 'moment';
+
+
+import BookItem from './BookItem.js';
 
 
 class ShowRecommendation extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {
       recommendationRequest: {},
+      formattedDate: "",
     }
   }
 
@@ -15,10 +20,12 @@ class ShowRecommendation extends Component {
     const recReq = firebase.firestore().collection("recommendationRequests").doc(this.props.match.params.id);
     recReq.get().then((doc) => {
       if (doc.exists) {
-        const categories = doc.data().categories;
-        const arr = categories ? Object.keys(categories) : [];
+        
+    var t = doc.data().dateCreated.toDate();
+    const formatted = moment(t).format("MMM Do YYYY");
         this.setState({
           recommendationRequest: doc.data(),
+          formattedDate: formatted,
         });
 
 
@@ -39,9 +46,15 @@ class ShowRecommendation extends Component {
     });
   }
 
-  render () {
+  render() {
     return (
-<div className="show-recommendation-container">here</div>
+      <div className="show-recommendation-container">
+
+        {this.state.formattedDate}
+        {this.state.recommendationRequest.user}
+        {this.state.recommendationRequest.categories}
+        {this.state.recommendationRequest.note}
+      </div>
     );
   }
 }

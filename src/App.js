@@ -171,7 +171,7 @@ class App extends Component {
             <Route path="/books/:id" render={(props) => <ShowBook {...props} showStatusCallback={this.showNewStatus} />} />
             <Route path="/addbook/" render={(props) => <AddBook {...props} showStatusCallback={this.showNewStatus} />} />
             <Route path="/recs/" exact render={(props) => <Recommendations {...props} {...this.props} showStatusCallback={this.showNewStatus} />} />
-            <Route path="/addrec/" render={(props) => <AddRecommendation {...props} showStatusCallback={this.showNewStatus} />} />
+            <Route path="/addrec/" render={(props) => <AddRecommendation {...props} {...this.props} showStatusCallback={this.showNewStatus} />} />
             <Route path="/recs/:id" render={(props) => <ShowRecommendation {...props} showStatusCallback={this.showNewStatus} />} />
            
           </Switch>
