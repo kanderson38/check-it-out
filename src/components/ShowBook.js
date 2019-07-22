@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import firebase from '../firebaseConfig.js';
-import { Link } from 'react-router-dom';
 
 import BookCategories from './BookCategories.js'
 
@@ -134,7 +133,7 @@ class ShowBook extends Component {
     if (this.state.book.title) {
       return (
         <div className="show-book-container">
-          <Link to="/books/" className="back-link">Back to book list</Link>
+          <span className="back-link" onClick={this.props.history.goBack}>Go back</span>
           <div className="book-info">
             <img src={this.state.book.thumbnail} alt={this.state.book.title} className="thumbnail"></img>
             <h2 className="title">{this.state.book.title}</h2>

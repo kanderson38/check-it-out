@@ -49,6 +49,21 @@ class AddBook extends Component {
       createdByName: firebase.auth().currentUser.displayName,
     })
       .then(() => {
+
+        if (this.props.hideAddBookCallback) {
+          const docRef = firebase.firestore().collection("recommendationRequests").doc(this.props.currentRequest);
+          return docRef.update({
+            responses: firebase.firestore.FieldValue.arrayUnion(book.id),
+        })
+        .then(() => {
+            console.log("Document successfully updated!");
+            this.props.hideAddBookCallback();
+        })
+        .catch((error) => {
+            // The document probably doesn't exist.
+            console.error("Error updating document: ", error);
+        });
+        }
         this.setState({
           shouldRedirect: true,
           addedBook: book.id,
@@ -56,7 +71,7 @@ class AddBook extends Component {
 
         const status = {
           type: "success",
-          message: "Successfully added book to library! Add categories on this page."
+          message: (this.props.hideAddBookCallback ? "Successfully added your response to recommendation request!" : "Successfully added book to library! Add categories on this page.")
         }
         this.props.showStatusCallback(status);
       })
@@ -101,12 +116,14 @@ class AddBook extends Component {
       return <Redirect to={`/books/${this.state.addedBook}`} />
     }
 
+    console.log(this.props.history);
+
     return (
       <div className="add-book-container">
         <div className="add-book-search-bar">
           <label>
-            Search for a new book:
-          <input name="search-api" placeholder="Title" value={this.state.searchQuery} onChange={this.onHandleSearchChange}></input>
+            {this.props.history.location.pathname === "/addbook/" ? `Search for a new book:` : `Add a new book as a response to this recommendation request:`}
+            <input name="search-api" placeholder="Title" value={this.state.searchQuery} onChange={this.onHandleSearchChange}></input>
             <span onClick={this.onHandleSearchClick} className="button submit-button">Search</span>
           </label>
         </div>

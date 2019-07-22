@@ -7,6 +7,9 @@
   display: block;
   padding: 40px 0 20px 20px;
   background-color: aliceblue;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 .book-info {

@@ -1,0 +1,39 @@
+.show-recommendation-container {
+  padding: 25px;
+  background-color: aliceblue;
+}
+
+.rec-name-date-container {
+  display: flex;
+  justify-items: flex-start;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.show-recommendation-header {
+  display: inline; 
+  margin-right: 20px;
+  line-height: 2.5em;
+}
+
+.note-container {
+  width: 70vw;
+  background-color: white;
+  border: 1px solid lightblue;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.book-items-container {
+  padding: 25px;
+}
+
+.book-items-container div:nth-of-type(odd) {
+  background-color: lightgrey;
+}
+
+.rec-category-list {
+  width: 50vw;  
+  display: flex;
+  flex-wrap: wrap;
+}

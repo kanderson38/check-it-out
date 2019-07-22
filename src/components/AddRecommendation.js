@@ -15,6 +15,7 @@ class AddRecommendation extends Component {
       categories: [],
       note: "",
       shouldRedirect: false,
+      newDoc: null,
     }
   }
 
@@ -117,7 +118,7 @@ class AddRecommendation extends Component {
   }
 
   render() {
-    if (this.state.shouldRedirect) {
+    if (this.state.shouldRedirect && this.state.newDoc) {
       return <Redirect to={`/recs/${this.state.newDoc}`} />
     }
     return (
