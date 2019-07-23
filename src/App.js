@@ -163,10 +163,10 @@ class App extends Component {
           </div>
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route
+           {this.props.user ? <Route
               path='/books/' exact
               render={(props) => <Books {...props} showStatusCallback={this.showNewStatus} />}
-            />
+            /> : <p>Not logged in</p> }
             <Route path="/users/" component={Users} />
             <Route path="/books/:id" render={(props) => <ShowBook {...props} showStatusCallback={this.showNewStatus} />} />
             <Route path="/addbook/" render={(props) => <AddBook {...props} showStatusCallback={this.showNewStatus} />} />

@@ -7,6 +7,7 @@
 
 .rec-category-list {
   list-style-type: none;
+  width: 50%;
 }
 
 .rec-category {
@@ -29,9 +30,14 @@ margin-right: 15px;
   font-weight: normal;
   color: darkred;
   cursor: pointer;
+  line-height: 2em;
 }
 
 .category-button {
   cursor: default;
   display: inline;
+}
+
+.responses {
+  margin: 20px;
 }

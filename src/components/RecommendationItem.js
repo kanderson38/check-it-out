@@ -18,6 +18,7 @@ class RecommendationItem extends Component {
   render() {
     var t = this.props.dateCreated.toDate();
     const formatted = moment(t).format("MMM Do YYYY")
+
     return (
       <div className="rec-item-link">
           <div className="rec-item-container">
@@ -27,7 +28,8 @@ class RecommendationItem extends Component {
               {formatted}: Submitted by
           {` ${this.props.requester}`}
           </Link>
-          <span className="delete-rec-link"><small>Delete this request {this.props.user.email}</small></span>
+          {this.props.user.email === this.props.userEmail ? 
+          <span className="delete-rec-link" onClick={() => this.props.deleteRequestCallback(this.props.id)}><small>Delete this request</small></span> : null}
             </span>
             <ul className="rec-category-list">{this.formatCategories()}</ul>
             <span className="responses">{this.props.responses.length} {this.props.responses.length === 1 ? "response" : "responses"}</span>

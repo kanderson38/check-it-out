@@ -25,6 +25,7 @@ class Recommendations extends Component {
           {
             id: doc.id,
             user: doc.data().user,
+            userEmail: doc.data().userEmail,
             dateCreated: doc.data().dateCreated,
             categories: doc.data().categories,
             responses: doc.data().responses,
@@ -40,9 +41,11 @@ class Recommendations extends Component {
             key={doc.id}
             id={doc.id}
             requester={doc.user}
+            userEmail={doc.userEmail}
             dateCreated={doc.dateCreated}
             categories={doc.categories}
             responses={doc.responses}
+            deleteRequestCallback={this.deleteRequest}
           />
         )
       })
@@ -51,6 +54,30 @@ class Recommendations extends Component {
         recommendationRequests: allRecReqs,
       })
     });
+  }
+
+  deleteRequest = (id) => {
+    if (window.confirm("Are you sure you want to delete this request?")) {
+      console.log("here");
+      const db = firebase.firestore();
+
+      db.collection("recommendationRequests").doc(id).delete().then(() => {
+        const status = {
+          type: "success",
+          message: "Successfully deleted request!",
+        }
+        this.props.showStatusCallback(status);
+
+      window.location.reload();
+      }).catch((error) => {
+        console.error("Error removing document: ", error);
+        const status = {
+          type: "error",
+          message: error,
+        }
+        this.props.showStatusCallback(status);
+      });
+    }
   }
 
   render() {

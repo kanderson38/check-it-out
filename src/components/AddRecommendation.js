@@ -85,6 +85,7 @@ class AddRecommendation extends Component {
 
     db.collection("recommendationRequests").add({
       user: this.props.user.displayName,
+      userEmail: this.props.user.email,
       categories: this.state.selectedCategories,
       note: this.state.noteText,
       responses: [],
