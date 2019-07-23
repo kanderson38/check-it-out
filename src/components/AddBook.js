@@ -35,7 +35,12 @@ class AddBook extends Component {
   addBook = (book) => {
     // add book to db
     const db = firebase.firestore().collection("books");
-
+    const categoriesSubmitted = {};
+    if (this.props.categoriesSubmitted) {
+      this.props.categoriesSubmitted.forEach ((cat) => {
+        categoriesSubmitted[cat] = true;
+      })
+    }
     db.doc(book.id).set({
       id: book.id,
       title: book.title,
@@ -47,6 +52,7 @@ class AddBook extends Component {
       description: book.description,
       createdByEmail: firebase.auth().currentUser.email,
       createdByName: firebase.auth().currentUser.displayName,
+      categories: categoriesSubmitted,
     })
       .then(() => {
 

@@ -12,6 +12,7 @@
 .message-text-area-container {
   display: flex;
   justify-content: center;
+  padding-bottom: 20px;
 }
 
 .message-text-area {

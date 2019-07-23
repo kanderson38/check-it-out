@@ -103,6 +103,7 @@ class ShowRecommendation extends Component {
         thumbnail={book.thumbnail}
         categories={book.categories}
         deleteBookCallback={this.deleteBook}
+        submittedBy={this.state.recommendationRequest.user}
       />
     });
 
@@ -136,7 +137,10 @@ class ShowRecommendation extends Component {
             <div className="note-container">{this.state.recommendationRequest.note}</div>
 
           </div>
-          <AddBook {...this.props} hideAddBookCallback={this.onHideAddBookPage} currentRequest={this.props.match.params.id} />
+          <AddBook {...this.props}
+            hideAddBookCallback={this.onHideAddBookPage}
+            categoriesSubmitted={this.state.recommendationRequest.categories}
+            currentRequest={this.props.match.params.id} />
         </div>
       )
     }
