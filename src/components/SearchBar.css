@@ -4,11 +4,12 @@
   font-weight: bold;
 }
 
-.search-bar-container input {
+.search-input {
   line-height: 2em;
   margin-left: 10px;
   width: 50%;
   border-radius: 5px;
   border: 1px solid lightgrey;
   font-family: 'Comfortaa', sans-serif;
+  font-size: 1.5em;
 }

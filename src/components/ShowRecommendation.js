@@ -130,8 +130,7 @@ class ShowRecommendation extends Component {
           <div className="show-recommendation-container">
             <h2>Request Details:</h2>
             <span className="rec-name-date-container">
-              {this.state.formattedDate}
-              {` ${this.state.recommendationRequest.user}`}
+              {`Submitted on ${this.state.formattedDate} by ${this.state.recommendationRequest.user}`}
               {this.state.recommendationRequest.categories ? <ul className="rec-category-list">{this.formatCategories()}</ul> : null}
             </span>
             <div className="note-container">{this.state.recommendationRequest.note}</div>
@@ -151,8 +150,8 @@ class ShowRecommendation extends Component {
           <div className="show-recommendation-container">
             <h2>Request Details:</h2>
             <span className="rec-name-date-container">
-              {this.state.formattedDate}
-              {` ${this.state.recommendationRequest.user}`}
+              
+            {`Submitted on ${this.state.formattedDate} by ${this.state.recommendationRequest.user}`}
               {this.state.recommendationRequest.categories ? <ul className="rec-category-list">{this.formatCategories()}</ul> : null}
             </span>
             <div className="note-container">{this.state.recommendationRequest.note}</div>

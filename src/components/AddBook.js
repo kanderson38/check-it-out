@@ -3,6 +3,7 @@ import axios from 'axios';
 import firebase from '../firebaseConfig.js';
 import { Redirect } from 'react-router-dom';
 import './AddBook.css';
+import AddNote from './AddNote.js';
 
 import SearchResultItem from './SearchResultItem.js'
 
@@ -18,6 +19,7 @@ class AddBook extends Component {
       results: [],
       shouldRedirect: false,
       addedBook: null,
+      popUpAddNote: false,
     }
   }
 
@@ -37,10 +39,11 @@ class AddBook extends Component {
     const db = firebase.firestore().collection("books");
     const categoriesSubmitted = {};
     if (this.props.categoriesSubmitted) {
-      this.props.categoriesSubmitted.forEach ((cat) => {
+      this.props.categoriesSubmitted.forEach((cat) => {
         categoriesSubmitted[cat] = true;
       })
     }
+
     db.doc(book.id).set({
       id: book.id,
       title: book.title,
@@ -60,18 +63,19 @@ class AddBook extends Component {
           const docRef = firebase.firestore().collection("recommendationRequests").doc(this.props.currentRequest);
           return docRef.update({
             responses: firebase.firestore.FieldValue.arrayUnion(book.id),
-        })
-        .then(() => {
-            console.log("Document successfully updated!");
-            this.props.hideAddBookCallback();
-        })
-        .catch((error) => {
-            // The document probably doesn't exist.
-            console.error("Error updating document: ", error);
-        });
+          })
+            .then(() => {
+              console.log("Document successfully updated!");
+              this.props.hideAddBookCallback();
+            })
+            .catch((error) => {
+              // The document probably doesn't exist.
+              console.error("Error updating document: ", error);
+            });
         }
         this.setState({
           shouldRedirect: true,
+          popUpAddNote: true,
           addedBook: book.id,
         })
 
@@ -118,11 +122,28 @@ class AddBook extends Component {
   }
 
   render() {
-    if (this.state.shouldRedirect) {
-      return <Redirect to={`/books/${this.state.addedBook}`} />
-    }
+    // if (this.state.shouldRedirect) {
+    //   return <Redirect to={`/books/${this.state.addedBook}`} />
+    // }
 
-    console.log(this.props.history);
+    if (this.state.popUpAddNote) {
+      return (
+        <div className="add-book-container">
+          <AddNote />
+          <div className="add-book-search-bar">
+            <label>
+              {this.props.history.location.pathname === "/addbook/" ? `Search for a new book:` : `Add a new book as a response to this recommendation request:`}
+              <input name="search-api" placeholder="Title" value={this.state.searchQuery} onChange={this.onHandleSearchChange}></input>
+              <span onClick={this.onHandleSearchClick} className="button submit-button">Search</span>
+            </label>
+          </div>
+
+          <div className="search-results-container">
+            {this.state.results}
+          </div>
+        </div>
+      )
+    }
 
     return (
       <div className="add-book-container">

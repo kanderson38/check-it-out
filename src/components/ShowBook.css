@@ -15,7 +15,7 @@
 .book-info {
   display: grid;
   padding: 20px 20px 0 20px;
-  grid-template: 150px 50px 50px minmax(50px auto) 50px / 1fr 4fr;
+  grid-template: 150px 50px 50px minmax(50px auto) 50px 50px / 1fr 4fr;
   grid-gap: 20px;
 }
 
@@ -51,6 +51,6 @@
 
 .created-by {
   line-height: 2.5em;
-  grid-column: span 2;
+  grid-column-start: 1;
 }
 
