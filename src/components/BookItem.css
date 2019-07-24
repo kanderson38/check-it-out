@@ -19,3 +19,7 @@ a {
   cursor: pointer;
   color: darkred;
 }
+
+.rec-note-text {
+  max-width: 45vw;
+}

@@ -153,6 +153,7 @@ class Books extends Component {
           thumbnail: doc.data().thumbnail,
           id: doc.data().id,
           categories: doc.data().categories,
+          noteText: doc.data().noteText,
         });
       });
 

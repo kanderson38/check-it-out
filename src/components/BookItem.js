@@ -20,7 +20,7 @@ class BookItem extends Component {
             <small>Delete from Library</small>
           </span> : null}
         </section>
-        {this.props.submittedBy ? <span>{this.props.noteText}</span> : null}
+        {this.props.submittedBy ? <span className="rec-note-text">{this.props.noteText}</span> : null}
 
         <img src={this.props.thumbnail} alt={this.props.title} className="book-item-thumbnail"></img>
       </div>

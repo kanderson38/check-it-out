@@ -15,6 +15,8 @@ class ShowBook extends Component {
       categories: [],
       selectedCategories: [],
       unselectedCategories: [],
+      editingText: false,
+
     }
   }
 
@@ -24,6 +26,7 @@ class ShowBook extends Component {
       if (doc.exists) {
         const categories = doc.data().categories;
         const arr = categories ? Object.keys(categories) : [];
+
         this.setState({
           book: doc.data(),
           categories: arr,
@@ -129,7 +132,48 @@ class ShowBook extends Component {
     }
   }
 
+  changeNote = (event) => {
+    const currentBook = this.state.book;
+    currentBook.noteText = event.target.value;
+    this.setState ({
+      book: currentBook,
+    })
+  }
+
+  editNote = () => {
+    this.setState ({
+      editingNote: true,
+    })
+  }
+
+  saveNote = () => {
+    const db = firebase.firestore().collection("books");
+
+    db.doc(this.state.book.id).update({
+      noteText: this.state.book.noteText,
+    })
+      .then(() => {
+        const status = {
+          type: "success",
+          message: ("Edited note")
+        }
+        this.props.showStatusCallback(status);
+
+      })
+      .catch(function (error) {
+        const status = {
+          type: "error",
+          message: error,
+        }
+        this.props.showStatusCallback(status);
+      });
+    this.setState ({
+      editingNote: false,
+    })
+  }
+
   render() {
+
     if (this.state.book.title) {
       return (
         <div className="show-book-container">
@@ -140,12 +184,19 @@ class ShowBook extends Component {
             <span className="author"><strong>{this.state.book.author}</strong></span>
             <span className="publish-info">Published by: {this.state.book.publisher}, {this.state.book.publishedDate}</span>
             <span className="description">{this.state.book.description}</span>
-            {this.state.book.previewLink !== "" ? 
-            <a className="preview-link" href={this.state.book.previewLink} target="blank">More info about this book (via Google)</a> : null}
+            {this.state.book.previewLink !== "" ?
+              <a className="preview-link" href={this.state.book.previewLink} target="blank">More info about this book (via Google)</a> : null}
             <span className="created-by"><strong>Book added by:</strong> {this.state.book.createdByName ? this.state.book.createdByName : ""}</span>
-            
+
           </div>
-          <div className="user-note"><strong>Notes on this book: </strong><span className="note-text">{this.state.book.noteText}</span></div>
+          <div className="user-note">
+            <strong>Notes on this book: </strong>
+            {this.state.editingNote ? <textarea className="note-text" onChange={this.changeNote} value={this.state.book.noteText}>
+            </textarea> : <textarea readOnly className="note-text" value={this.state.book.noteText}>
+            </textarea>}
+      {this.props.user.email === this.state.book.createdByEmail ? 
+        (this.state.editingNote ? <span className="button edit-button" onClick={this.saveNote}>Save</span> : <span className="button edit-button" onClick={this.editNote}>Edit</span>) : null}
+          </div>
           <div className="book-categories-container">
             {this.state.unselectedCategories.length > 0 || this.state.selectedCategories.length > 0 ? <BookCategories {...this.props}
               categories={this.state.categories}

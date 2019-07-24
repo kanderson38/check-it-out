@@ -135,7 +135,6 @@ class App extends Component {
 
     const {
       user,
-      signOut,
     } = this.props;
 
     return (
@@ -175,7 +174,7 @@ class App extends Component {
               path='/books/' exact
               render={(props) => <Books {...props} showStatusCallback={this.showNewStatus} />} /> : "Not logged in"}
             <Route path="/users/" component={Users} />
-            <Route path="/books/:id" render={(props) => <ShowBook {...props} showStatusCallback={this.showNewStatus} />} />
+            <Route path="/books/:id" render={(props) => <ShowBook {...props} {...this.props} showStatusCallback={this.showNewStatus} />} />
             <Route path="/addbook/" render={(props) => <AddBook {...props} showStatusCallback={this.showNewStatus} />} />
             <Route path="/recs/" exact render={(props) => <Recommendations {...props} {...this.props} showStatusCallback={this.showNewStatus} />} />
             <Route path="/addrec/" render={(props) => <AddRecommendation {...props} {...this.props} showStatusCallback={this.showNewStatus} />} />

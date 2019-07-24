@@ -56,6 +56,7 @@ class AddBook extends Component {
       createdByEmail: firebase.auth().currentUser.email,
       createdByName: firebase.auth().currentUser.displayName,
       categories: categoriesSubmitted,
+      notetext: "",
     })
       .then(() => {
         console.log("added book");
@@ -125,8 +126,21 @@ class AddBook extends Component {
       })
   }
 
+  skipNote = () => {
+    if (!this.props.hideAddBookCallback) {
+      this.setState({
+        popUpAddNote: false,
+        shouldRedirect: true,
+      })
+    } else {
+      this.setState({
+        popUpAddNote: false,
+      })
+    }
+  }
+
   addNote = (noteText) => {
-    
+
     const db = firebase.firestore().collection("books");
 
     db.doc(this.state.addedBook).update({
@@ -141,21 +155,21 @@ class AddBook extends Component {
         this.props.showStatusCallback(status);
 
         if (!this.props.hideAddBookCallback) {
-        this.setState ({
-          popUpAddNote: false,
-          shouldRedirect: true,
-        })
-      } else {
-        this.setState ({
-          popUpAddNote: false,
-        })
+          this.setState({
+            popUpAddNote: false,
+            shouldRedirect: true,
+          })
+        } else {
+          this.setState({
+            popUpAddNote: false,
+          })
 
 
-        this.props.hideAddBookCallback();
-        window.location.reload();
-      }
+          this.props.hideAddBookCallback();
+          window.location.reload();
+        }
 
-        
+
       })
       .catch(function (error) {
         const status = {
@@ -164,10 +178,6 @@ class AddBook extends Component {
         }
         this.props.showStatusCallback(status);
       });
-    
-
-    
-    
   }
 
   render() {
