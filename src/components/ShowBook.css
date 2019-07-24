@@ -1,8 +1,3 @@
-.show-book-container {
-  /* display: grid;
-  grid-template: 100px 1fr / 1fr; */
-}
-
 .back-link {
   display: block;
   padding: 40px 0 20px 20px;
@@ -15,7 +10,7 @@
 .book-info {
   display: grid;
   padding: 20px 20px 0 20px;
-  grid-template: 150px 50px 50px minmax(50px auto) 50px 50px / 1fr 4fr;
+  grid-template: 150px 50px 50px minmax(50px auto) 50px 50px minmax(50px auto) / 1fr 4fr;
   grid-gap: 20px;
 }
 
@@ -54,3 +49,18 @@
   grid-column-start: 1;
 }
 
+.user-note {
+  margin: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: aliceblue;
+  grid-column-start: 1;
+  grid-column: span 2;
+}
+
+.note-text {
+  margin-left: 5px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
+}

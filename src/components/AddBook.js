@@ -58,6 +58,7 @@ class AddBook extends Component {
       categories: categoriesSubmitted,
     })
       .then(() => {
+        console.log("added book");
 
         if (this.props.hideAddBookCallback) {
           const docRef = firebase.firestore().collection("recommendationRequests").doc(this.props.currentRequest);
@@ -66,7 +67,10 @@ class AddBook extends Component {
           })
             .then(() => {
               console.log("Document successfully updated!");
-              this.props.hideAddBookCallback();
+              this.setState({
+                popUpAddNote: true,
+                addedBook: book.id,
+              })
             })
             .catch((error) => {
               // The document probably doesn't exist.
@@ -121,15 +125,61 @@ class AddBook extends Component {
       })
   }
 
+  addNote = (noteText) => {
+    
+    const db = firebase.firestore().collection("books");
+
+    db.doc(this.state.addedBook).update({
+      noteText: noteText,
+    })
+      .then(() => {
+        console.log(noteText);
+        const status = {
+          type: "success",
+          message: (this.props.hideAddBookCallback ? "Successfully added your response to recommendation request!" : "Successfully added book to library! Add categories on this page.")
+        }
+        this.props.showStatusCallback(status);
+
+        if (!this.props.hideAddBookCallback) {
+        this.setState ({
+          popUpAddNote: false,
+          shouldRedirect: true,
+        })
+      } else {
+        this.setState ({
+          popUpAddNote: false,
+        })
+
+
+        this.props.hideAddBookCallback();
+        window.location.reload();
+      }
+
+        
+      })
+      .catch(function (error) {
+        const status = {
+          type: "error",
+          message: error,
+        }
+        this.props.showStatusCallback(status);
+      });
+    
+
+    
+    
+  }
+
   render() {
-    // if (this.state.shouldRedirect) {
-    //   return <Redirect to={`/books/${this.state.addedBook}`} />
-    // }
+
+    if (this.state.shouldRedirect && !this.state.popUpAddNote) {
+      return <Redirect to={`/books/${this.state.addedBook}`} />
+    }
 
     if (this.state.popUpAddNote) {
       return (
         <div className="add-book-container">
-          <AddNote />
+          <AddNote addNoteCallback={this.addNote} skipNoteCallback={this.skipNote} />
           <div className="add-book-search-bar">
             <label>
               {this.props.history.location.pathname === "/addbook/" ? `Search for a new book:` : `Add a new book as a response to this recommendation request:`}

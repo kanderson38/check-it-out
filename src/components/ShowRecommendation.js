@@ -52,6 +52,7 @@ class ShowRecommendation extends Component {
                     id: doc.data().id,
                     thumbnail: doc.data().thumbnail,
                     categories: doc.data().categories,
+                    noteText: doc.data().noteText,
                   });
                 });
 
@@ -103,6 +104,7 @@ class ShowRecommendation extends Component {
         thumbnail={book.thumbnail}
         categories={book.categories}
         deleteBookCallback={this.deleteBook}
+        noteText={book.noteText}
         submittedBy={this.state.recommendationRequest.user}
       />
     });
@@ -120,7 +122,7 @@ class ShowRecommendation extends Component {
     this.setState({
       showAddBook: false,
     })
-    window.location.reload();
+    // window.location.reload();
   }
 
   render() {

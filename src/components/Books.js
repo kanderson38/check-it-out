@@ -175,6 +175,7 @@ class Books extends Component {
         title={book.title}
         author={book.author}
         id={book.id}
+        noteText={book.noteText}
         thumbnail={book.thumbnail}
         categories={book.categories}
         deleteBookCallback={this.deleteBook}

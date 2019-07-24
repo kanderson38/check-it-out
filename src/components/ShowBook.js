@@ -141,9 +141,11 @@ class ShowBook extends Component {
             <span className="publish-info">Published by: {this.state.book.publisher}, {this.state.book.publishedDate}</span>
             <span className="description">{this.state.book.description}</span>
             {this.state.book.previewLink !== "" ? 
-            <a className="preview-link" href={this.state.book.previewLink} target="blank">More info about this book</a> : null}
+            <a className="preview-link" href={this.state.book.previewLink} target="blank">More info about this book (via Google)</a> : null}
             <span className="created-by"><strong>Book added by:</strong> {this.state.book.createdByName ? this.state.book.createdByName : ""}</span>
+            
           </div>
+          <div className="user-note"><strong>Notes on this book: </strong><span className="note-text">{this.state.book.noteText}</span></div>
           <div className="book-categories-container">
             {this.state.unselectedCategories.length > 0 || this.state.selectedCategories.length > 0 ? <BookCategories {...this.props}
               categories={this.state.categories}

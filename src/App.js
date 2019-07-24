@@ -44,18 +44,18 @@ class App extends Component {
   }
 
   showNewStatus = (status) => {
-      this.setState ({
-        statusToShow: {
-          message: status.message,
-          type: status.type,
-        }
-      });
+    this.setState({
+      statusToShow: {
+        message: status.message,
+        type: status.type,
+      }
+    });
 
-      setTimeout(this.resetStatus, 8000);
+    setTimeout(this.resetStatus, 8000);
   }
 
   resetStatus = () => {
-    this.setState ({
+    this.setState({
       statusToShow: {
         message: "",
         type: "hidden",
@@ -67,7 +67,7 @@ class App extends Component {
     const docRef = firebase.firestore().collection("users").doc(user.email);
     docRef.get().then(function (doc) {
       if (doc.exists) {
-        console.log("Document data:", doc.data());
+        // console.log("Document data:", doc.data());
       } else {
         this.addUserToDatabase(user);
       }
@@ -123,8 +123,16 @@ class App extends Component {
     });
   }
 
+  onSignOut = () => {
+    this.props.signOut();
+
+    if (window.confirm("You are now logged out of Check It Out. If you are on a shared computer, please also log out of Google by visiting google.com.")) {
+      window.location.href = 'https://www.google.com';
+    };
+  }
+
   render() {
-    
+
     const {
       user,
       signOut,
@@ -142,7 +150,7 @@ class App extends Component {
               }
               {
                 user
-                  ? <span className="button" onClick={signOut}>Sign out</span>
+                  ? <span className="button" onClick={this.onSignOut}>Sign out</span>
                   : <span className="button" onClick={this.onSignIn}>Sign in with Google</span>
               }
             </div>
@@ -159,21 +167,20 @@ class App extends Component {
             </ul>
           </nav>
           <div className={`status ${this.state.statusToShow.type}`}>
-              <p>{this.state.statusToShow.message}</p>
+            <p>{this.state.statusToShow.message}</p>
           </div>
           <Switch>
             <Route path="/" exact component={Home} />
-           {this.props.user ? <Route
+            {this.props.user ? <Route
               path='/books/' exact
-              render={(props) => <Books {...props} showStatusCallback={this.showNewStatus} />}
-            /> : <p>Not logged in</p> }
+              render={(props) => <Books {...props} showStatusCallback={this.showNewStatus} />} /> : "Not logged in"}
             <Route path="/users/" component={Users} />
             <Route path="/books/:id" render={(props) => <ShowBook {...props} showStatusCallback={this.showNewStatus} />} />
             <Route path="/addbook/" render={(props) => <AddBook {...props} showStatusCallback={this.showNewStatus} />} />
             <Route path="/recs/" exact render={(props) => <Recommendations {...props} {...this.props} showStatusCallback={this.showNewStatus} />} />
             <Route path="/addrec/" render={(props) => <AddRecommendation {...props} {...this.props} showStatusCallback={this.showNewStatus} />} />
             <Route path="/recs/:id" render={(props) => <ShowRecommendation {...props} {...this.props} showStatusCallback={this.showNewStatus} />} />
-           
+
           </Switch>
 
         </div>

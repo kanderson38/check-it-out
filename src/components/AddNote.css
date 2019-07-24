@@ -26,4 +26,15 @@
   height: 20vh;
   margin: 10px;
   align-self: center;
+  font-family: "Comfortaa", sans-serif;
+  font-size: 1em;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.note-button {
+  margin: 10px;
 }
