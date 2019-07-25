@@ -24,7 +24,7 @@ class RecommendationItem extends Component {
           <div className="rec-item-container">
             
         <span className="rec-name-date">
-        <Link to={`${this.props.match.url}${this.props.id}`}>
+        <Link to={`/recs/${this.props.id}`}>
               {formatted}: Submitted by
           {` ${this.props.requester}`}
           </Link>

@@ -1,0 +1,18 @@
+.recommendations-container {
+  margin: 25px;
+}
+
+.show-user-name {
+  height: 50px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.show-user-header {
+  background-color: aliceblue;
+  height: 50px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}

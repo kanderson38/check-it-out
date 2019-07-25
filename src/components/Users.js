@@ -46,7 +46,6 @@ class Users extends Component {
   }
 
   render() {
-    console.log(this.state.users.length);
     if (this.state.users.length > 0) {
       return (<div>
         <div className="users-header">Select a user to see her/his recommendation requests and the books she/he has added to the library.</div>
