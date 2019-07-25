@@ -1,3 +1,11 @@
 .users-container div:nth-of-type(even) {
   background-color: lightgrey;
 }
+
+.users-header {
+  padding: 20px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  background-color: aliceblue;
+}

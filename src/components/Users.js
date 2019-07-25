@@ -11,8 +11,6 @@ class Users extends Component {
 
     this.state = {
       users: [],
-      readyToRenderBooks: false,
-      readyToRenderRequests: false,
     }
   }
 
@@ -22,65 +20,10 @@ class Users extends Component {
     db.get().then((querySnapshot) => {
 
       querySnapshot.forEach((doc) => {
-        // get all books attached to user email
-        const userBooks = [];
-        const userRequests = [];
-        const email = doc.data().email;
-        const books = firebase.firestore().collection("books").where("createdByEmail", "==", email);
-        books.get()
-          .then((querySnapshot) => {
-
-            querySnapshot.forEach((doc) => {
-              // doc.data() is never undefined for query doc snapshots
-              userBooks.push({
-                title: doc.data().title,
-                author: doc.data().author,
-                id: doc.data().id,
-                thumbnail: doc.data().thumbnail,
-                categories: doc.data().categories,
-                noteText: doc.data().noteText,
-              });
-            });
-            this.setState ({
-              readyToRenderBooks: true,
-            })
-          })
-          .catch((error) => {
-            console.log("Error getting documents: ", error);
-          });
-
-        // get all requests attached to user email
-
-        const requests = firebase.firestore().collection("recommendationRequests").where("userEmail", "==", email);
-        requests.get()
-          .then((querySnapshot) => {
-
-            querySnapshot.forEach((doc) => {
-              // doc.data() is never undefined for query doc snapshots
-              userRequests.push({
-                id: doc.data().id,
-                requester: doc.data().user,
-                userEmail: doc.data().userEmail,
-                dateCreated: doc.data().dateCreated,
-                categories: doc.data().categories,
-                responses: doc.data().responses,
-              });
-            });
-
-            this.setState ({
-              readyToRenderRequests: true
-            })
-          })
-          .catch((error) => {
-            console.log("Error getting documents: ", error);
-          });
-
 
         allUsers.push({
           name: doc.data().name,
           email: doc.data().email,
-          books: userBooks,
-          requests: userRequests,
         });
       });
 
@@ -96,21 +39,22 @@ class Users extends Component {
     return users.map((user) => {
       return <UserItem
         key={user.email}
+        id={user.email}
         name={user.name}
-        email={user.email}
-        books={user.books}
-        requests={user.requests} />
+        email={user.email} />
     })
   }
 
   render() {
-    console.log(this.state.users);
-    if (this.state.readyToRenderBooks && this.state.readyToRenderRequests) {
-    return (
-      <div className="users-container">
-        {this.state.users}
+    console.log(this.state.users.length);
+    if (this.state.users.length > 0) {
+      return (<div>
+        <div className="users-header">Select a user to see her/his recommendation requests and the books she/he has added to the library.</div>
+        <div className="users-container">
+          {this.state.users}
+        </div>
       </div>
-    );
+      );
     } else {
       return (null);
     }

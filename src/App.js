@@ -161,6 +161,9 @@ class App extends Component {
               <li>
                 <Link to="/recs/">Recommendation Requests</Link>
               </li>
+              <li>
+                <Link to="/users/">Users</Link>
+              </li>
             </ul>
           </nav>
           <div className={`status ${this.state.statusToShow.type}`}>

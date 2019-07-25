@@ -1,26 +1,16 @@
-import React, { Component } from 'react';
-
+import React from 'react';
+import { Link } from 'react-router-dom';
 import './UserItem.css';
 
 
-class UserItem extends Component {
-
-  render() {
-    console.log(this.props);
-    if (this.props.books) {
+const UserItem = (props) => {
+  
       return (
         <div className="user-item-container">
-          <span className="user-name">{this.props.name}</span>
-          <span className="user-books">{this.props.books.length} Books Added to Library</span>
-          <span className="user-requests">{this.props.requests.length} Recommendation Requests</span>
+          <Link to={`/users/${props.id}`}><span className="user-name">{props.name}</span></Link>
 
         </div>
       )
-    } else {
-      return (null);
-    }
-
-  }
 }
 
 export default UserItem;
