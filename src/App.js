@@ -8,6 +8,8 @@ import AddBook from './components/AddBook.js';
 import Recommendations from './components/Recommendations.js';
 import AddRecommendation from './components/AddRecommendation.js';
 import ShowRecommendation from './components/ShowRecommendation.js';
+import Users from "./components/Users.js";
+import ShowUser from './components/ShowUser.js';
 
 import withFirebaseAuth from 'react-with-firebase-auth';
 import 'firebase/auth';
@@ -25,10 +27,6 @@ const providers = {
   googleProvider: new firebase.auth.GoogleAuthProvider(),
 };
 
-
-function Users() {
-  return <h2>Users</h2>;
-}
 
 class App extends Component {
 
@@ -173,7 +171,9 @@ class App extends Component {
             {this.props.user ? <Route
               path='/books/' exact
               render={(props) => <Books {...props} showStatusCallback={this.showNewStatus} />} /> : "Not logged in"}
-            <Route path="/users/" component={Users} />
+            <Route path="/users/" exact render={(props) => <Users {...props} {...this.props} showStatusCallback={this.showNewStatus} />} />
+            <Route path="/users/:id" render={(props) => <ShowUser {...props} {...this.props} showStatusCallback={this.showNewStatus} />} />
+           
             <Route path="/books/:id" render={(props) => <ShowBook {...props} {...this.props} showStatusCallback={this.showNewStatus} />} />
             <Route path="/addbook/" render={(props) => <AddBook {...props} showStatusCallback={this.showNewStatus} />} />
             <Route path="/recs/" exact render={(props) => <Recommendations {...props} {...this.props} showStatusCallback={this.showNewStatus} />} />

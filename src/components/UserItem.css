@@ -1,0 +1,11 @@
+.user-item-container {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user-name {
+  font-weight: bold;
+  padding: 15px;
+}
