@@ -147,7 +147,6 @@ class AddBook extends Component {
       noteText: noteText,
     })
       .then(() => {
-        console.log(noteText);
         const status = {
           type: "success",
           message: (this.props.hideAddBookCallback ? "Successfully added your response to recommendation request!" : "Successfully added book to library! Add categories on this page.")

@@ -155,7 +155,7 @@ class ShowBook extends Component {
       .then(() => {
         const status = {
           type: "success",
-          message: ("Edited note")
+          message: ("Successfully updated note!")
         }
         this.props.showStatusCallback(status);
 

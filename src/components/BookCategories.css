@@ -8,16 +8,9 @@
 }
 
 .categories-header {
-  display: block;
+  display: flex;
   margin-bottom: 20px;
-}
-
-.edit-button {
-  cursor: pointer;
-  background-color: lightblue;
-  border-radius: 5px;
-  padding: 5px;
-  margin-left: 15px;
+  justify-content: space-between;
 }
 
 .category-items-container {
