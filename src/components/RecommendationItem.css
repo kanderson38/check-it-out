@@ -7,7 +7,6 @@
 
 .rec-category-list {
   list-style-type: none;
-  width: 50%;
 }
 
 .rec-category {
@@ -39,5 +38,6 @@ margin-right: 15px;
 }
 
 .responses {
+  width: 150px;
   margin: 20px;
 }
