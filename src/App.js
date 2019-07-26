@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import logo from './images/logo2.svg';
 import './App.css'
 import Home from "./components/Home.js";
 import Books from './components/Books.js';
@@ -151,15 +152,16 @@ class App extends Component {
                   : <span className="button" onClick={this.onSignIn}>Sign in with Google</span>
               }
             </div>
-
-            <h1 className="logo"><Link to="/">Check It Out</Link></h1>
-
+            <div className="logo-div">
+              <h1 className="logo"><Link to="/">Check It Out</Link></h1>
+              <img src={logo} className="nav-logo-image" alt="Check It Out"></img>
+            </div>
             <ul>
               <li>
                 <Link to="/books/">Full Library</Link>
               </li>
               <li>
-                <Link to="/recs/">Recommendation Requests</Link>
+                <Link to="/recs/">Requests</Link>
               </li>
               <li>
                 <Link to="/users/">Users</Link>
@@ -176,7 +178,7 @@ class App extends Component {
               render={(props) => <Books {...props} showStatusCallback={this.showNewStatus} />} /> : "Not logged in"}
             <Route path="/users/" exact render={(props) => <Users {...props} {...this.props} showStatusCallback={this.showNewStatus} />} />
             <Route path="/users/:id" render={(props) => <ShowUser {...props} {...this.props} showStatusCallback={this.showNewStatus} />} />
-           
+
             <Route path="/books/:id" render={(props) => <ShowBook {...props} {...this.props} showStatusCallback={this.showNewStatus} />} />
             <Route path="/addbook/" render={(props) => <AddBook {...props} showStatusCallback={this.showNewStatus} />} />
             <Route path="/recs/" exact render={(props) => <Recommendations {...props} {...this.props} showStatusCallback={this.showNewStatus} />} />

@@ -27,6 +27,20 @@ nav a {
   text-decoration: none;
 }
 
+.logo-div {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  display: inline;
+}
+
+.nav-logo-image {
+  margin-left: 10px;
+  height: 40px;
+}
+
 .button {
   color: black;
 }
@@ -34,6 +48,7 @@ nav a {
 .login {
   display: flex;
   align-items: center;
+  justify-items: flex-start;
 }
 
 .login-span {
@@ -41,16 +56,6 @@ nav a {
   padding-left: 10px;
 }
 
-.login-button {
-  background-color: lightblue;
-  padding: 5px;
-  color: slateblue;
-  border-radius: 5px;
-}
-
-.login-button:hover {
-  cursor: pointer;
-}
 
 .error {
   background-color: rgb(248, 219, 223);
