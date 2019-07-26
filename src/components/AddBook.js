@@ -20,6 +20,7 @@ class AddBook extends Component {
       shouldRedirect: false,
       addedBook: null,
       popUpAddNote: false,
+      noteText: " ",
     }
   }
 
@@ -56,10 +57,9 @@ class AddBook extends Component {
       createdByEmail: firebase.auth().currentUser.email,
       createdByName: firebase.auth().currentUser.displayName,
       categories: categoriesSubmitted,
-      notetext: "",
+      noteText: " ",
     })
       .then(() => {
-        console.log("added book");
 
         if (this.props.hideAddBookCallback) {
           const docRef = firebase.firestore().collection("recommendationRequests").doc(this.props.currentRequest);

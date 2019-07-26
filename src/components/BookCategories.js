@@ -27,6 +27,7 @@ class BookCategories extends Component {
   }
 
   createNewCategory = () => {
+    if (this.state.newCategory !== "") {
     const catCollection = firebase.firestore().collection("categories");
 
     catCollection.doc(this.state.newCategory).set({
@@ -65,7 +66,9 @@ class BookCategories extends Component {
         this.props.showStatusCallback(status);
         console.error("Error writing document: ", error);
       });
-
+    } else {
+      console.log("blank");
+    }
 
   }
 
@@ -98,6 +101,7 @@ class BookCategories extends Component {
       )
     });
 
+
     this.setState({
       allCategoryItems: allCategories,
     });
@@ -105,8 +109,8 @@ class BookCategories extends Component {
 
   saveCategories = () => {
     this.changeEditState();
-    if (!this.props.match.url === "/addrec/") {
-    this.props.saveSelectedCategoriesCallback();
+    if (this.props.match.url !== "/addrec/") {
+      this.props.saveSelectedCategoriesCallback();
     }
   };
 

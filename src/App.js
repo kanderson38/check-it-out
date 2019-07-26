@@ -175,15 +175,42 @@ class App extends Component {
             <Route path="/" exact component={Home} />
             {this.props.user ? <Route
               path='/books/' exact
-              render={(props) => <Books {...props} showStatusCallback={this.showNewStatus} />} /> : "Not logged in"}
-            <Route path="/users/" exact render={(props) => <Users {...props} {...this.props} showStatusCallback={this.showNewStatus} />} />
-            <Route path="/users/:id" render={(props) => <ShowUser {...props} {...this.props} showStatusCallback={this.showNewStatus} />} />
+              render={(props) => <Books {...props} showStatusCallback={this.showNewStatus} />} /> : 
+              <Route path="/" exact component={Home} />}
 
-            <Route path="/books/:id" render={(props) => <ShowBook {...props} {...this.props} showStatusCallback={this.showNewStatus} />} />
-            <Route path="/addbook/" render={(props) => <AddBook {...props} showStatusCallback={this.showNewStatus} />} />
-            <Route path="/recs/" exact render={(props) => <Recommendations {...props} {...this.props} showStatusCallback={this.showNewStatus} />} />
-            <Route path="/addrec/" render={(props) => <AddRecommendation {...props} {...this.props} showStatusCallback={this.showNewStatus} />} />
-            <Route path="/recs/:id" render={(props) => <ShowRecommendation {...props} {...this.props} showStatusCallback={this.showNewStatus} />} />
+{this.props.user ? <Route path="/users/" exact render={(props) =>
+              <Users {...props} {...this.props} showStatusCallback={this.showNewStatus} />}
+            /> : 
+            <Route path="/" exact component={Home} />}
+
+            {this.props.user ? <Route path="/users/:id" render={(props) =>
+              <ShowUser {...props} {...this.props} showStatusCallback={this.showNewStatus} />}
+            /> : 
+            <Route path="/" exact component={Home} />}
+
+            {this.props.user ? <Route path="/books/:id" render={(props) => <ShowBook {...props} {...this.props} showStatusCallback={this.showNewStatus} />}
+            /> : 
+            <Route path="/" exact component={Home} />}
+
+            {this.props.user ? <Route path="/addbook/" render={(props) =>
+              <AddBook {...props} showStatusCallback={this.showNewStatus} />}
+            /> : 
+            <Route path="/" exact component={Home} />}
+
+            {this.props.user ? <Route path="/recs/" exact render={(props) =>
+              <Recommendations {...props} {...this.props} showStatusCallback={this.showNewStatus} />}
+            /> : 
+            <Route path="/" exact component={Home} />}
+
+            {this.props.user ? <Route path="/addrec/" render={(props) =>
+              <AddRecommendation {...props} {...this.props} showStatusCallback={this.showNewStatus} />}
+            /> : 
+            <Route path="/" exact component={Home} />}
+
+            {this.props.user ? <Route path="/recs/:id" render={(props) =>
+              <ShowRecommendation {...props} {...this.props} showStatusCallback={this.showNewStatus} />}
+            /> : 
+            <Route path="/" exact component={Home} />}
 
           </Switch>
 

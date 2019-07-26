@@ -12,6 +12,7 @@ class ShowBook extends Component {
 
     this.state = {
       book: {},
+      bookID: "",
       categories: [],
       selectedCategories: [],
       unselectedCategories: [],
@@ -29,6 +30,7 @@ class ShowBook extends Component {
 
         this.setState({
           book: doc.data(),
+          bookID: doc.id,
           categories: arr,
         });
 
@@ -149,7 +151,7 @@ class ShowBook extends Component {
   saveNote = () => {
     const db = firebase.firestore().collection("books");
 
-    db.doc(this.state.book.id).update({
+    db.doc(this.props.match.params.id).update({
       noteText: this.state.book.noteText,
     })
       .then(() => {
