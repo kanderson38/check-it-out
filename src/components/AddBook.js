@@ -135,7 +135,10 @@ class AddBook extends Component {
     } else {
       this.setState({
         popUpAddNote: false,
+
       })
+      this.props.hideAddBookCallback();
+          window.location.reload();
     }
   }
 

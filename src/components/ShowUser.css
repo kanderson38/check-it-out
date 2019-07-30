@@ -1,5 +1,9 @@
-.recommendations-container {
+.user-recommendations-container {
   margin: 25px;
+}
+
+.user-recommendations-container div:nth-of-type(even) {
+  background-color: lightgrey;
 }
 
 .show-user-name {

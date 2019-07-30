@@ -1,4 +1,8 @@
 
+.recommendations-container {
+  margin: 0;
+}
+
 .recommendations-container div:nth-of-type(even) {
   background-color: lightgrey;
 }

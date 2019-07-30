@@ -164,7 +164,7 @@ class ShowUser extends Component {
         <div className="show-user-header">
           <h2>Requests for recommendations:</h2>
         </div>
-        <div className="recommendations-container">
+        <div className="user-recommendations-container">
           {this.state.requests}
         </div>
 
