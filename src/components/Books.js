@@ -37,7 +37,7 @@ class Books extends Component {
         });
       });
 
-      
+
       const bookItems = this.mapBooks(allBooks);
 
       this.setState({
@@ -110,63 +110,76 @@ class Books extends Component {
     this.setState({
       filters: allFilters,
     })
-
     this.onFilterResults();
 
   }
 
   onSearchBooks = (searchString) => {
     const booksToSearch = this.state.books;
-    const foundBooks = [];
+    let foundBooks = [];
 
     if (searchString !== "") {
-      booksToSearch.forEach(function (book) {
+      booksToSearch.forEach( (book) => {
         if (book.props.title.toLowerCase().includes(searchString.toLowerCase()) ||
           book.props.author.toLowerCase().includes(searchString.toLowerCase())) {
           foundBooks.push(book);
         }
+        this.setState({
+          books: foundBooks,
+        })
       });
     } else {
+      foundBooks = this.state.defaultBooks;
       this.onFilterResults();
     }
-
-
-    this.setState({
-      books: foundBooks,
-    })
   }
 
   onFilterResults = () => {
-    const filteredBooks = [];
-    let filteredResults = firebase.firestore().collection('books');
+    let filteredBooks = this.state.defaultBooks;
 
-    this.state.filters.forEach(function (cat) {
-      const thingToCheck = 'categories.' + cat;
-      filteredResults = filteredResults.where(thingToCheck, '==', true);
+    if (this.state.filters.length !== 0) {
+      this.state.filters.forEach((cat) => {
+        let tempBooks = [];
+        filteredBooks.forEach((book) => {
+          if (book.props.categories[cat]) {
+            tempBooks.push(book);
+          }
+        })
+
+        filteredBooks = tempBooks;
+      })
+    } else {
+      filteredBooks = this.state.defaultBooks;
+    }
+    // let filteredResults = firebase.firestore().collection('books');
+
+    // this.state.filters.forEach(function (cat) {
+    //   const thingToCheck = 'categories.' + cat;
+    //   filteredResults = filteredResults.where(thingToCheck, '==', true);
+    // });
+
+    // filteredResults.get().then((querySnapshot) => {
+
+    //   querySnapshot.forEach(function (doc) {
+    //     filteredBooks.push({
+    //       title: doc.data().title,
+    //       author: doc.data().author,
+    //       thumbnail: doc.data().thumbnail,
+    //       id: doc.data().id,
+    //       categories: doc.data().categories,
+    //       noteText: doc.data().noteText,
+    //     });
+    //   });
+
+    //   filteredBooks.sort(this.compareTitles);
+
+
+    //   const bookItems = this.mapBooks(filteredBooks);
+
+    this.setState({
+      books: filteredBooks,
     });
-
-    filteredResults.get().then((querySnapshot) => {
-
-      querySnapshot.forEach(function (doc) {
-        filteredBooks.push({
-          title: doc.data().title,
-          author: doc.data().author,
-          thumbnail: doc.data().thumbnail,
-          id: doc.data().id,
-          categories: doc.data().categories,
-          noteText: doc.data().noteText,
-        });
-      });
-
-      filteredBooks.sort(this.compareTitles);
-
-
-      const bookItems = this.mapBooks(filteredBooks);
-
-      this.setState({
-        books: bookItems,
-      });
-    });
+    // });
   }
 
   mapBooks = (books) => {
