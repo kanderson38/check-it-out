@@ -37,6 +37,7 @@ class Books extends Component {
         });
       });
 
+      
       const bookItems = this.mapBooks(allBooks);
 
       this.setState({
@@ -135,7 +136,7 @@ class Books extends Component {
     })
   }
 
-  onFilterResults = (results) => {
+  onFilterResults = () => {
     const filteredBooks = [];
     let filteredResults = firebase.firestore().collection('books');
 
