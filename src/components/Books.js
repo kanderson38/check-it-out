@@ -151,35 +151,11 @@ class Books extends Component {
     } else {
       filteredBooks = this.state.defaultBooks;
     }
-    // let filteredResults = firebase.firestore().collection('books');
-
-    // this.state.filters.forEach(function (cat) {
-    //   const thingToCheck = 'categories.' + cat;
-    //   filteredResults = filteredResults.where(thingToCheck, '==', true);
-    // });
-
-    // filteredResults.get().then((querySnapshot) => {
-
-    //   querySnapshot.forEach(function (doc) {
-    //     filteredBooks.push({
-    //       title: doc.data().title,
-    //       author: doc.data().author,
-    //       thumbnail: doc.data().thumbnail,
-    //       id: doc.data().id,
-    //       categories: doc.data().categories,
-    //       noteText: doc.data().noteText,
-    //     });
-    //   });
-
-    //   filteredBooks.sort(this.compareTitles);
-
-
-    //   const bookItems = this.mapBooks(filteredBooks);
-
+   
     this.setState({
       books: filteredBooks,
     });
-    // });
+   
   }
 
   mapBooks = (books) => {
