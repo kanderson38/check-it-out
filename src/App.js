@@ -64,7 +64,7 @@ class App extends Component {
 
   checkAgainstDatabase = (user) => {
     const docRef = firebase.firestore().collection("users").doc(user.email);
-    docRef.get().then(function (doc) {
+    docRef.get().then((doc) => {
       if (doc.exists) {
         // console.log("Document data:", doc.data());
       } else {
@@ -77,6 +77,7 @@ class App extends Component {
   }
 
   addUserToDatabase = (user) => {
+    console.log(`adding ${user.email}`);
     const db = firebase.firestore();
     db.collection("users").doc(user.email).set({
       name: user.displayName,

@@ -34,12 +34,12 @@ class BookCategories extends Component {
       name: this.state.newCategory
     })
       .then(() => {
-        const status = {
-          type: "success",
-          message: "Successfully created category!"
-        }
-        this.props.showStatusCallback(status);
-        console.log("Document successfully written!");
+        // const status = {
+        //   type: "success",
+        //   message: "Successfully created category!"
+        // }
+        // this.props.showStatusCallback(status);
+        // console.log("Document successfully written!");
 
         const allCategories = this.state.allCategoryItems;
         allCategories.unshift(
